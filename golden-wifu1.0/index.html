@@ -1,0 +1,1243 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>金的惡搞測試</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   整個網頁
+   ===================================================== */
+
+html,
+body {
+
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #202020;
+
+    font-family:
+        Arial,
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+}
+
+
+/* =====================================================
+   顏色變數
+   之後可以讓玩家自己選手機顏色
+   ===================================================== */
+
+:root {
+
+    --phone-color: #8e6bd1;
+
+    --phone-shadow:
+        0 15px 50px rgba(0,0,0,0.55);
+
+}
+
+
+/* =====================================================
+   手機外框
+   ===================================================== */
+
+/*
+   聊天區 = 360 × 640 = 9:16
+
+   Header = 68
+   Chat   = 640
+   Input  = 68
+
+   加上手機邊框後，
+   整體約為 9:19
+*/
+
+.phone {
+
+    width: 360px;
+
+    height: 796px;
+
+    flex-shrink: 0;
+
+    padding: 9px;
+
+    background:
+        var(--phone-color);
+
+    border-radius: 38px;
+
+    box-shadow:
+        var(--phone-shadow);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   手機內部螢幕
+   ===================================================== */
+
+.screen {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 29px;
+
+    /*
+       ★ 金的背景固定在這一層
+    */
+
+    background-image:
+        url("golden-wifu.jpg");
+
+    background-position:
+        center center;
+
+    background-size:
+        cover;
+
+    background-repeat:
+        no-repeat;
+
+}
+
+
+/* =====================================================
+   Header
+   ===================================================== */
+
+.chat-header {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        10px 15px;
+
+    background:
+        rgba(20,20,25,0.72);
+
+    backdrop-filter:
+        blur(8px);
+
+    color: white;
+
+    z-index: 20;
+}
+
+
+/* 金頭像 */
+
+.header-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border:
+        2px solid white;
+
+    margin-right: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.35);
+}
+
+
+.header-name {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+}
+
+
+.header-status {
+
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    opacity: 0.75;
+
+}
+
+
+/* =====================================================
+   ★ CHAT VIEWPORT
+   ★ 固定 9:16
+   ===================================================== */
+
+#chat {
+
+    position: absolute;
+
+    top: 68px;
+
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    height: 640px;
+
+    padding:
+        15px 11px;
+
+    /*
+       ★ 只有聊天室可以滾
+    */
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+
+    z-index: 5;
+
+}
+
+
+/* =====================================================
+   訊息共同設定
+   ===================================================== */
+
+.message {
+
+    display: flex;
+
+    width: 100%;
+
+    align-items: flex-end;
+
+    gap: 6px;
+
+    margin-bottom: 12px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* =====================================================
+   USER / NPC
+   右邊
+   ===================================================== */
+
+.userMessage {
+
+    justify-content:
+        flex-end;
+
+}
+
+
+/* =====================================================
+   金
+   左邊
+   ===================================================== */
+
+.goldMessage {
+
+    justify-content:
+        flex-start;
+
+}
+
+
+/* =====================================================
+   圓形頭像
+   ===================================================== */
+
+.avatar {
+
+    width: 38px;
+    height: 38px;
+
+    flex:
+        0 0 38px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border:
+        2px solid white;
+
+    background:
+        rgba(255,255,255,0.2);
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.35);
+}
+
+
+/* =====================================================
+   訊息泡泡
+   ===================================================== */
+
+.bubble {
+
+    max-width: 72%;
+
+    padding:
+        9px 13px;
+
+    border-radius: 18px;
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.20);
+
+}
+
+
+/* =====================================================
+   USER 泡泡
+   ===================================================== */
+
+.userMessage .bubble {
+
+    background:
+        rgba(142,107,209,0.95);
+
+    color:
+        white;
+
+    border-bottom-right-radius:
+        5px;
+
+}
+
+
+/* =====================================================
+   金 泡泡
+   ===================================================== */
+
+.goldMessage .bubble {
+
+    background:
+        rgba(255,255,255,0.94);
+
+    color:
+        #222;
+
+    border-bottom-left-radius:
+        5px;
+
+}
+
+
+/* =====================================================
+   時間
+   ===================================================== */
+
+.time {
+
+    margin:
+        0 2px 3px;
+
+    font-size:
+        9px;
+
+    color:
+        white;
+
+    opacity:
+        0.85;
+
+    flex-shrink:
+        0;
+
+}
+
+
+/* =====================================================
+   「金正在思考……」
+   ===================================================== */
+
+.waiting {
+
+    opacity:
+        0.75;
+
+}
+
+
+.waiting .bubble {
+
+    color:
+        #777;
+
+    font-style:
+        italic;
+
+}
+
+
+/* =====================================================
+   底部輸入區
+   固定，不會跟著聊天滾
+   ===================================================== */
+
+#inputArea {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        9px 10px;
+
+    background:
+        rgba(20,20,25,0.80);
+
+    backdrop-filter:
+        blur(10px);
+
+    z-index: 20;
+
+}
+
+
+/* =====================================================
+   輸入框
+   ===================================================== */
+
+#userInput {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 38px;
+
+    padding:
+        0 15px;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,0.95);
+
+    color:
+        #333;
+
+    font-size:
+        13px;
+
+}
+
+
+#userInput::placeholder {
+
+    color:
+        #999;
+
+}
+
+
+/* =====================================================
+   按鈕
+   ===================================================== */
+
+#sendButton {
+
+    width: 38px;
+    height: 38px;
+
+    flex:
+        0 0 38px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    color:
+        white;
+
+    font-size:
+        17px;
+
+    cursor:
+        pointer;
+
+}
+
+
+#sendButton:hover {
+
+    background:
+        rgba(255,255,255,0.30);
+
+}
+
+
+#sendButton:disabled {
+
+    opacity:
+        0.45;
+
+    cursor:
+        default;
+
+}
+
+
+/* =====================================================
+   小螢幕
+   ===================================================== */
+
+@media (max-height: 820px) {
+
+    .phone {
+
+        transform:
+            scale(
+                calc((100vh - 20px) / 796)
+            );
+
+        transform-origin:
+            center center;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     PHONE
+     ===================================================== -->
+
+<div class="phone">
+
+    <div class="screen">
+
+
+        <!-- =============================================
+             HEADER
+             ============================================= -->
+
+        <div class="chat-header">
+
+            <img
+                class="header-avatar"
+                src="golden-pfp.png"
+                alt="金"
+            >
+
+            <div>
+
+                <div class="header-name">
+                    金
+                </div>
+
+                <div class="header-status">
+                    在線
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             CHAT
+             ============================================= -->
+
+        <div id="chat">
+
+
+            <!-- 初始訊息 -->
+
+            <div class="message goldMessage">
+
+                <img
+                    class="avatar"
+                    src="golden-pfp.png"
+                    alt="金"
+                >
+
+                <div class="bubble">
+                    嗯？
+                </div>
+
+                <div class="time">
+                    23:50
+                </div>
+
+            </div>
+
+
+            <div class="message userMessage">
+
+                <div class="time">
+                    23:50
+                </div>
+
+                <div class="bubble">
+                    你在做什麼？
+                </div>
+
+                <img
+                    class="avatar"
+                    src="npc-pfp.png"
+                    alt="NPC"
+                >
+
+            </div>
+
+
+            <div class="message goldMessage">
+
+                <img
+                    class="avatar"
+                    src="golden-pfp.png"
+                    alt="金"
+                >
+
+                <div class="bubble">
+                    剛剛運動完。
+                </div>
+
+                <div class="time">
+                    23:51
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             INPUT
+             ============================================= -->
+
+        <div id="inputArea">
+
+            <input
+                id="userInput"
+                type="text"
+                placeholder="輸入你想對金說的話..."
+                autocomplete="off"
+            >
+
+
+            <button
+                id="sendButton"
+                type="button"
+            >
+                ➤
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+// =====================================================
+// DOM
+// =====================================================
+
+const chat =
+    document.getElementById("chat");
+
+const userInput =
+    document.getElementById("userInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+
+// =====================================================
+// 金的反應庫
+// =====================================================
+
+const reactions = [
+
+    "金看起來很高興！",
+
+    "金露出嫌惡的表情……",
+
+    "金難以置信妳在想什麼。",
+
+    "金似乎裝作沒聽見。",
+
+    "金有點難為情……",
+
+    "金一臉想打妳的樣子。"
+
+];
+
+
+// =====================================================
+// 狀態
+// =====================================================
+
+let waiting = false;
+
+
+// =====================================================
+// 隨機反應
+// =====================================================
+
+function getRandomReaction() {
+
+    const index =
+        Math.floor(
+            Math.random()
+            * reactions.length
+        );
+
+    return reactions[index];
+
+}
+
+
+// =====================================================
+// 取得時間
+// =====================================================
+
+function getTime() {
+
+    const now =
+        new Date();
+
+    return now.toLocaleTimeString(
+        "zh-TW",
+        {
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit",
+
+            hour12:
+                false
+        }
+    );
+
+}
+
+
+// =====================================================
+// 加入 USER 訊息
+// =====================================================
+
+function addUserMessage(text) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+    wrapper.className =
+        "message userMessage";
+
+
+    const time =
+        document.createElement(
+            "div"
+        );
+
+    time.className =
+        "time";
+
+    time.textContent =
+        getTime();
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+    bubble.className =
+        "bubble";
+
+    bubble.textContent =
+        text;
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+    avatar.className =
+        "avatar";
+
+    avatar.src =
+        "npc-pfp.png";
+
+    avatar.alt =
+        "NPC";
+
+
+    /*
+       USER：
+
+       時間
+       ↓
+       泡泡
+       ↓
+       頭像
+    */
+
+    wrapper.appendChild(
+        time
+    );
+
+    wrapper.appendChild(
+        bubble
+    );
+
+    wrapper.appendChild(
+        avatar
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+    scrollChat();
+
+}
+
+
+// =====================================================
+// 加入金訊息
+// =====================================================
+
+function addGoldMessage(text) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+    wrapper.className =
+        "message goldMessage";
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+    avatar.className =
+        "avatar";
+
+    avatar.src =
+        "golden-pfp.png";
+
+    avatar.alt =
+        "金";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+    bubble.className =
+        "bubble";
+
+    bubble.textContent =
+        text;
+
+
+    const time =
+        document.createElement(
+            "div"
+        );
+
+    time.className =
+        "time";
+
+    time.textContent =
+        getTime();
+
+
+    /*
+       金：
+
+       頭像
+       ↓
+       泡泡
+       ↓
+       時間
+    */
+
+    wrapper.appendChild(
+        avatar
+    );
+
+    wrapper.appendChild(
+        bubble
+    );
+
+    wrapper.appendChild(
+        time
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+    scrollChat();
+
+}
+
+
+// =====================================================
+// 金正在思考
+// =====================================================
+
+function addWaitingMessage() {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+    wrapper.className =
+        "message goldMessage waiting";
+
+    wrapper.id =
+        "waitingMessage";
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+    avatar.className =
+        "avatar";
+
+    avatar.src =
+        "golden-pfp.png";
+
+    avatar.alt =
+        "金";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+    bubble.className =
+        "bubble";
+
+    bubble.textContent =
+        "金正在思考……";
+
+
+    wrapper.appendChild(
+        avatar
+    );
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+    scrollChat();
+
+}
+
+
+// =====================================================
+// 移除等待
+// =====================================================
+
+function removeWaitingMessage() {
+
+    const waiting =
+        document.getElementById(
+            "waitingMessage"
+        );
+
+
+    if (waiting) {
+
+        waiting.remove();
+
+    }
+
+}
+
+
+// =====================================================
+// 聊天捲到底
+// =====================================================
+
+function scrollChat() {
+
+    chat.scrollTo({
+
+        top:
+            chat.scrollHeight,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+// =====================================================
+// 發送訊息
+// =====================================================
+
+function sendMessage() {
+
+    /*
+       正在等待金反應時，
+       暫時不能再送
+    */
+
+    if (waiting) {
+
+        return;
+
+    }
+
+
+    const text =
+        userInput.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    // ================================================
+    // USER 立即出現
+    // ================================================
+
+    addUserMessage(
+        text
+    );
+
+
+    // ================================================
+    // 清空
+    // ================================================
+
+    userInput.value =
+        "";
+
+
+    // ================================================
+    // 鎖定
+    // ================================================
+
+    waiting =
+        true;
+
+    sendButton.disabled =
+        true;
+
+    userInput.disabled =
+        true;
+
+
+    // ================================================
+    // 金正在思考
+    // ================================================
+
+    addWaitingMessage();
+
+
+    // ================================================
+    // ★ 1 秒後金反應
+    // ================================================
+
+    setTimeout(
+
+        () => {
+
+            removeWaitingMessage();
+
+
+            const reaction =
+                getRandomReaction();
+
+
+            addGoldMessage(
+                reaction
+            );
+
+
+            // ========================================
+            // 解鎖
+            // ========================================
+
+            waiting =
+                false;
+
+            sendButton.disabled =
+                false;
+
+            userInput.disabled =
+                false;
+
+            userInput.focus();
+
+        },
+
+        1000
+
+    );
+
+}
+
+
+// =====================================================
+// 按鈕送出
+// =====================================================
+
+sendButton.addEventListener(
+
+    "click",
+
+    sendMessage
+
+);
+
+
+// =====================================================
+// Enter 送出
+// =====================================================
+
+userInput.addEventListener(
+
+    "keydown",
+
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+
+);
+
+
+// =====================================================
+// 初始焦點
+// =====================================================
+
+userInput.focus();
+
+
+</script>
+
+
+</body>
+</html>
+```
