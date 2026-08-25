@@ -5,10 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GOLDEN-WIFU1.0</title>
 
@@ -20,16 +17,12 @@
 
 html,
 body {
-
     margin: 0;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
 
@@ -44,7 +37,7 @@ body {
 
 
 /* =====================================================
-   顏色設定
+   顏色
    ===================================================== */
 
 :root {
@@ -78,7 +71,6 @@ body {
 .phone {
 
     width: 360px;
-
     height: 794px;
 
     padding: 9px;
@@ -142,7 +134,6 @@ body {
     height: 68px;
 
     display: flex;
-
     align-items: center;
 
     padding:
@@ -165,8 +156,7 @@ body {
     width: 42px;
     height: 42px;
 
-    flex:
-        0 0 42px;
+    flex: 0 0 42px;
 
     margin-right: 10px;
 
@@ -186,7 +176,6 @@ body {
 .header-text {
 
     display: flex;
-
     flex-direction: column;
 }
 
@@ -220,9 +209,7 @@ body {
     position: absolute;
 
     top: 68px;
-
     left: 0;
-
     right: 0;
 
     width: 100%;
@@ -233,7 +220,6 @@ body {
         15px 11px;
 
     overflow-y: auto;
-
     overflow-x: hidden;
 
     z-index: 5;
@@ -263,13 +249,11 @@ body {
 
 
 .goldMessage {
-
     justify-content: flex-start;
 }
 
 
 .userMessage {
-
     justify-content: flex-end;
 }
 
@@ -283,8 +267,7 @@ body {
     width: 38px;
     height: 38px;
 
-    flex:
-        0 0 38px;
+    flex: 0 0 38px;
 
     border-radius: 50%;
 
@@ -536,7 +519,6 @@ body {
 
 
 #userInput::placeholder {
-
     color: #999;
 }
 
@@ -546,8 +528,7 @@ body {
     width: 38px;
     height: 38px;
 
-    flex:
-        0 0 38px;
+    flex: 0 0 38px;
 
     border: none;
 
@@ -580,7 +561,7 @@ body {
 
 
 /* =====================================================
-   小螢幕
+   小螢幕縮放
    ===================================================== */
 
 @media (max-height: 820px) {
@@ -726,9 +707,6 @@ const GAME_CONFIG = {
        檔案
        --------------------------------------------- */
 
-    gameWallpaper:
-        "golden-wifu.jpg",
-
     rewardWallpaper:
         "golden-wifu1.0-wallpaper.jpg"
 
@@ -768,18 +746,16 @@ let goldOffline =
 let rewardSent =
     false;
 
+let talkingData =
+    null;
 
-/* =====================================================
-   JSON
-   ===================================================== */
-
-let talkingData = null;
-
-let feelingData = null;
+let feelingData =
+    null;
 
 
 /* =====================================================
-   載入 JSON
+   ★ 載入 JSON
+   ★ 注意：現在與 index.html 同層
    ===================================================== */
 
 async function loadGameData() {
@@ -788,7 +764,7 @@ async function loadGameData() {
 
         const talkingResponse =
             await fetch(
-                "data/golden-talking.json"
+                "golden-talking.json"
             );
 
 
@@ -807,7 +783,7 @@ async function loadGameData() {
 
         const feelingResponse =
             await fetch(
-                "data/golden-feeling.json"
+                "golden-feeling.json"
             );
 
 
@@ -834,11 +810,15 @@ async function loadGameData() {
     }
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         addSystemMessage(
-            "遊戲資料載入失敗，請確認 data 資料夾與 JSON 檔案位置。"
+            "遊戲資料載入失敗，請確認 JSON 檔案是否與 index.html 同層。"
         );
+
 
         sendButton.disabled =
             true;
@@ -861,7 +841,7 @@ function addSystemMessage(text) {
         document.createElement("div");
 
     wrapper.className =
-        "goldMessage";
+        "message goldMessage";
 
 
     const bubble =
@@ -895,6 +875,7 @@ function getCurrentTime() {
 
     const now =
         new Date();
+
 
     return now.toLocaleTimeString(
         "zh-TW",
@@ -1275,7 +1256,7 @@ function pickFromRange(range) {
 
 
 /* =====================================================
-   D100 金反應
+   D100 → 金反應
    ===================================================== */
 
 function getRandomReactionNumber() {
@@ -1288,11 +1269,6 @@ function getRandomReactionNumber() {
 
     let resultType;
 
-
-    /* ---------------------------------------------
-       01～70
-       正常 ±10
-       --------------------------------------------- */
 
     if (
         roll <=
@@ -1307,12 +1283,6 @@ function getRandomReactionNumber() {
 
     }
 
-
-    /* ---------------------------------------------
-       71～85
-       中性 #40～#60
-       --------------------------------------------- */
-
     else if (
         roll <=
         GAME_CONFIG.d100.neutralMax
@@ -1326,12 +1296,6 @@ function getRandomReactionNumber() {
 
     }
 
-
-    /* ---------------------------------------------
-       86～95
-       同極性
-       --------------------------------------------- */
-
     else if (
         roll <=
         GAME_CONFIG.d100.samePolarityMax
@@ -1344,12 +1308,6 @@ function getRandomReactionNumber() {
             "SAME";
 
     }
-
-
-    /* ---------------------------------------------
-       96～100
-       反極性
-       --------------------------------------------- */
 
     else {
 
@@ -1383,7 +1341,7 @@ function getRandomReactionNumber() {
 
 
 /* =====================================================
-   沒有關鍵詞時的中立分數
+   沒有關鍵詞 → 中立隨機
    ===================================================== */
 
 function getNeutralScore() {
@@ -1425,7 +1383,7 @@ function getNeutralScore() {
 
 
 /* =====================================================
-   ★ 計算某個詞出現幾次
+   ★ 計算詞語出現次數
    ===================================================== */
 
 function countOccurrences(
@@ -1468,18 +1426,17 @@ function countOccurrences(
 
         count++;
 
-        /*
-           往後移動一個字元。
 
-           這樣如果：
+        /*
+           只往後移動一個字元。
+
+           因此：
+
+           哈
+           → 1
 
            哈哈哈
-
-           word = 哈
-
-           就會得到：
-
-           3 次
+           → 3
         */
 
         position =
@@ -1494,7 +1451,7 @@ function countOccurrences(
 
 
 /* =====================================================
-   ★ 計算玩家輸入造成的好感度
+   ★ 好感度計算
    ===================================================== */
 
 function calculateFeeling(text) {
@@ -1513,14 +1470,9 @@ function calculateFeeling(text) {
         false;
 
 
-    /*
-       =================================================
+    /* =================================================
        正面詞庫
-
-       每一個詞：
-       出現幾次就算幾次
-       =================================================
-    */
+       ================================================= */
 
     for (
         let score = 1;
@@ -1599,15 +1551,9 @@ function calculateFeeling(text) {
     }
 
 
-    /*
-       =================================================
+    /* =================================================
        負面詞庫
-
-       同樣：
-
-       出現幾次就扣幾次
-       =================================================
-    */
+       ================================================= */
 
     for (
         let score = 1;
@@ -1686,13 +1632,9 @@ function calculateFeeling(text) {
     }
 
 
-    /*
-       =================================================
-       完全沒有任何關鍵詞
-
-       才使用中立隨機
-       =================================================
-    */
+    /* =================================================
+       完全沒有命中
+       ================================================= */
 
     if (!matched) {
 
@@ -1711,11 +1653,9 @@ function calculateFeeling(text) {
     }
 
 
-    /*
-       =================================================
-       最終全部加總
-       =================================================
-    */
+    /* =================================================
+       全部命中結果加總
+       ================================================= */
 
     console.log(
         "本次輸入總分:",
@@ -1741,6 +1681,7 @@ function changeAffection(delta) {
     affection =
         Math.max(
             GAME_CONFIG.minAffection,
+
             Math.min(
                 GAME_CONFIG.maxAffection,
                 affection
@@ -1751,7 +1692,7 @@ function changeAffection(delta) {
     console.log(
         "目前好感度:",
         affection,
-        "本次變化:",
+        "| 本次:",
         delta
     );
 
@@ -1825,7 +1766,7 @@ function addWallpaperFile() {
 
         <a
             class="file-download"
-            href="${GAME_CONFIG.rewardWallpaper}"
+            href="golden-wifu1.0-wallpaper.jpg"
             download="golden-wifu1.0-wallpaper.jpg"
         >
             開啟
@@ -1887,15 +1828,12 @@ function getReactionText(
 
 function respondToPlayer() {
 
-    /*
-       100：
-
-       特殊事件
-    */
+    /* ---------------------------------------------
+       100 → 發檔案
+       --------------------------------------------- */
 
     if (
-        affection >=
-        GAME_CONFIG.rewardAffection
+        affection >= 100
     ) {
 
         addWallpaperFile();
@@ -1905,11 +1843,9 @@ function respondToPlayer() {
     }
 
 
-    /*
-       1～99：
-
-       D100
-    */
+    /* ---------------------------------------------
+       1～99 → D100
+       --------------------------------------------- */
 
     const reactionNumber =
         getRandomReactionNumber();
@@ -1929,7 +1865,7 @@ function respondToPlayer() {
 
 
 /* =====================================================
-   發送訊息
+   發送
    ===================================================== */
 
 function sendMessage() {
@@ -1956,9 +1892,9 @@ function sendMessage() {
     }
 
 
-    /*
+    /* ---------------------------------------------
        顯示玩家訊息
-    */
+       --------------------------------------------- */
 
     addUserMessage(
         text
@@ -1969,12 +1905,10 @@ function sendMessage() {
         "";
 
 
-    /*
-       金已離線：
-
-       仍然可以輸入，
-       但她不再回答。
-    */
+    /* ---------------------------------------------
+       金已離線
+       → 玩家仍然可以繼續冷輸出
+       --------------------------------------------- */
 
     if (
         goldOffline
@@ -1985,9 +1919,9 @@ function sendMessage() {
     }
 
 
-    /*
+    /* ---------------------------------------------
        計算好感度
-    */
+       --------------------------------------------- */
 
     const delta =
         calculateFeeling(
@@ -2000,15 +1934,12 @@ function sendMessage() {
     );
 
 
-    /*
-       0：
-
-       金離線
-    */
+    /* ---------------------------------------------
+       0 → 金離線
+       --------------------------------------------- */
 
     if (
-        affection <=
-        GAME_CONFIG.offlineAffection
+        affection <= 0
     ) {
 
         goGoldOffline();
@@ -2018,63 +1949,9 @@ function sendMessage() {
     }
 
 
-    /*
-       100：
-
-       下一個階段直接發檔案。
-       不再進入 D100。
-    */
-
-    if (
-        affection >=
-        GAME_CONFIG.rewardAffection
-    ) {
-
-        waiting =
-            true;
-
-        sendButton.disabled =
-            true;
-
-        userInput.disabled =
-            true;
-
-        addWaitingMessage();
-
-
-        setTimeout(
-            () => {
-
-                removeWaitingMessage();
-
-                respondToPlayer();
-
-                waiting =
-                    false;
-
-                sendButton.disabled =
-                    false;
-
-                userInput.disabled =
-                    false;
-
-                userInput.focus();
-
-            },
-            GAME_CONFIG.reactionDelay
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-       一般回應：
-
+    /* ---------------------------------------------
        等待 1 秒
-    */
+       --------------------------------------------- */
 
     waiting =
         true;
@@ -2094,7 +1971,24 @@ function sendMessage() {
 
             removeWaitingMessage();
 
-            respondToPlayer();
+
+            /* -----------------------------------------
+               100 → 桌布
+               ----------------------------------------- */
+
+            if (
+                affection >= 100
+            ) {
+
+                addWallpaperFile();
+
+            }
+
+            else {
+
+                respondToPlayer();
+
+            }
 
 
             waiting =
