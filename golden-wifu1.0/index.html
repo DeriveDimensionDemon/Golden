@@ -11,15 +11,22 @@
 
 <style>
 
+/* =====================================================
+   基本設定
+   ===================================================== */
+
 * {
     box-sizing: border-box;
 }
 
 html,
 body {
+
     margin: 0;
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
 
     display: flex;
@@ -71,6 +78,7 @@ body {
 .phone {
 
     width: 360px;
+
     height: 794px;
 
     padding: 9px;
@@ -91,7 +99,7 @@ body {
 
 
 /* =====================================================
-   螢幕
+   模擬螢幕
    ===================================================== */
 
 .screen {
@@ -134,6 +142,7 @@ body {
     height: 68px;
 
     display: flex;
+
     align-items: center;
 
     padding:
@@ -148,6 +157,12 @@ body {
     color: white;
 
     z-index: 20;
+
+    /*
+       與手機上方圓角吻合
+    */
+    border-radius:
+        50% 50% 0 0;
 }
 
 
@@ -156,7 +171,8 @@ body {
     width: 42px;
     height: 42px;
 
-    flex: 0 0 42px;
+    flex:
+        0 0 42px;
 
     margin-right: 10px;
 
@@ -176,6 +192,7 @@ body {
 .header-text {
 
     display: flex;
+
     flex-direction: column;
 }
 
@@ -209,6 +226,7 @@ body {
     position: absolute;
 
     top: 68px;
+
     left: 0;
     right: 0;
 
@@ -220,6 +238,7 @@ body {
         15px 11px;
 
     overflow-y: auto;
+
     overflow-x: hidden;
 
     z-index: 5;
@@ -249,11 +268,13 @@ body {
 
 
 .goldMessage {
+
     justify-content: flex-start;
 }
 
 
 .userMessage {
+
     justify-content: flex-end;
 }
 
@@ -267,7 +288,8 @@ body {
     width: 38px;
     height: 38px;
 
-    flex: 0 0 38px;
+    flex:
+        0 0 38px;
 
     border-radius: 50%;
 
@@ -367,6 +389,79 @@ body {
 
 
 /* =====================================================
+   飄浮 Emoji
+   ===================================================== */
+
+.floating-emoji {
+
+    position: absolute;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    font-size: 24px;
+
+    opacity: 0;
+
+    animation:
+        emojiFloat 1.2s ease-out forwards;
+
+    transform:
+        translateY(0)
+        scale(0.7);
+
+    text-shadow:
+        0 2px 6px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+@keyframes emojiFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.6)
+            rotate(-8deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    70% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-65px)
+            scale(1.1)
+            rotate(8deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-105px)
+            scale(0.85)
+            rotate(-5deg);
+
+    }
+
+}
+
+
+/* =====================================================
    檔案
    ===================================================== */
 
@@ -447,7 +542,8 @@ body {
 
     border-radius: 10px;
 
-    background: #d1a26b;
+    background:
+        #d1a26b;
 
     color: white;
 
@@ -489,6 +585,12 @@ body {
         blur(10px);
 
     z-index: 20;
+
+    /*
+       與手機下方圓角吻合
+    */
+    border-radius:
+        0 0 50% 50%;
 }
 
 
@@ -519,6 +621,7 @@ body {
 
 
 #userInput::placeholder {
+
     color: #999;
 }
 
@@ -528,7 +631,8 @@ body {
     width: 38px;
     height: 38px;
 
-    flex: 0 0 38px;
+    flex:
+        0 0 38px;
 
     border: none;
 
@@ -635,7 +739,7 @@ body {
 
 
         <!-- =================================================
-             輸入
+             輸入區
              ================================================= -->
 
         <div id="inputArea">
@@ -663,7 +767,6 @@ body {
 
 
 <script>
-
 
 /* =====================================================
    遊戲設定
@@ -704,7 +807,7 @@ const GAME_CONFIG = {
 
 
     /* ---------------------------------------------
-       檔案
+       桌布
        --------------------------------------------- */
 
     rewardWallpaper:
@@ -754,22 +857,54 @@ let feelingData =
 
 
 /* =====================================================
-   ★ 載入 JSON
-   ★ 注意：現在與 index.html 同層
+   Emoji
+   ===================================================== */
+
+const positiveEmojis = [
+
+    "💛",
+    "❤️",
+    "💕",
+    "💓",
+    "💗",
+    "❤️‍🔥"
+
+];
+
+
+const negativeEmojis = [
+
+    "💢",
+    "💦",
+    "💔",
+    "💤",
+    "🚮",
+    "💭",
+    "🚓",
+    "🌋"
+
+];
+
+
+/* =====================================================
+   載入 JSON
    ===================================================== */
 
 async function loadGameData() {
 
+
     /* =================================================
-       測試 1：金的語錄
+       金的語錄
        ================================================= */
 
     try {
 
         const talkingResponse =
             await fetch(
-                "./golden-talking.json?v=" + Date.now()
+                "./golden-talking.json?v=" +
+                Date.now()
             );
+
 
         console.log(
             "golden-talking HTTP:",
@@ -778,7 +913,9 @@ async function loadGameData() {
         );
 
 
-        if (!talkingResponse.ok) {
+        if (
+            !talkingResponse.ok
+        ) {
 
             throw new Error(
                 "golden-talking.json HTTP " +
@@ -790,12 +927,6 @@ async function loadGameData() {
 
         const talkingText =
             await talkingResponse.text();
-
-
-        console.log(
-            "golden-talking 原始內容:",
-            talkingText
-        );
 
 
         talkingData =
@@ -836,14 +967,15 @@ async function loadGameData() {
 
 
     /* =================================================
-       測試 2：好感度詞庫
+       好感度詞庫
        ================================================= */
 
     try {
 
         const feelingResponse =
             await fetch(
-                "./golden-feeling.json?v=" + Date.now()
+                "./golden-feeling.json?v=" +
+                Date.now()
             );
 
 
@@ -854,7 +986,9 @@ async function loadGameData() {
         );
 
 
-        if (!feelingResponse.ok) {
+        if (
+            !feelingResponse.ok
+        ) {
 
             throw new Error(
                 "golden-feeling.json HTTP " +
@@ -866,12 +1000,6 @@ async function loadGameData() {
 
         const feelingText =
             await feelingResponse.text();
-
-
-        console.log(
-            "golden-feeling 原始內容:",
-            feelingText
-        );
 
 
         feelingData =
@@ -911,9 +1039,22 @@ async function loadGameData() {
     }
 
 
-    /* =================================================
-       全部成功
-       ================================================= */
+        /* =================================================
+           初始聊天紀錄
+           ================================================= */
+        
+        addGoldMessage(
+            "嗯？"
+        );
+        
+        addUserMessage(
+            "妳在做什麼？"
+        );
+        
+        addGoldMessage(
+            "剛剛運動完。"
+        );
+
 
     console.log(
         "================================"
@@ -940,17 +1081,24 @@ async function loadGameData() {
 function addSystemMessage(text) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "message goldMessage";
 
 
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     bubble.className =
         "bubble";
+
 
     bubble.textContent =
         text;
@@ -960,9 +1108,11 @@ function addSystemMessage(text) {
         bubble
     );
 
+
     chat.appendChild(
         wrapper
     );
+
 
     scrollChat();
 
@@ -991,7 +1141,7 @@ function getCurrentTime() {
 
 
 /* =====================================================
-   捲到底部
+   自動捲到底部
    ===================================================== */
 
 function scrollChat() {
@@ -1009,40 +1159,56 @@ function scrollChat() {
 function addUserMessage(text) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "message userMessage";
 
 
     const avatar =
-        document.createElement("img");
+        document.createElement(
+            "img"
+        );
+
 
     avatar.className =
         "avatar";
 
+
     avatar.src =
         "npc-pfp.png";
+
 
     avatar.alt =
         "NPC";
 
 
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     bubble.className =
         "bubble";
+
 
     bubble.textContent =
         text;
 
 
     const time =
-        document.createElement("span");
+        document.createElement(
+            "span"
+        );
+
 
     time.className =
         "time";
+
 
     time.textContent =
         getCurrentTime();
@@ -1052,9 +1218,11 @@ function addUserMessage(text) {
         time
     );
 
+
     wrapper.appendChild(
         bubble
     );
+
 
     wrapper.appendChild(
         avatar
@@ -1064,6 +1232,7 @@ function addUserMessage(text) {
     chat.appendChild(
         wrapper
     );
+
 
     scrollChat();
 
@@ -1077,40 +1246,56 @@ function addUserMessage(text) {
 function addGoldMessage(text) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "message goldMessage";
 
 
     const avatar =
-        document.createElement("img");
+        document.createElement(
+            "img"
+        );
+
 
     avatar.className =
         "avatar";
 
+
     avatar.src =
         "golden-pfp.png";
+
 
     avatar.alt =
         "Gold";
 
 
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     bubble.className =
         "bubble";
+
 
     bubble.textContent =
         text;
 
 
     const time =
-        document.createElement("span");
+        document.createElement(
+            "span"
+        );
+
 
     time.className =
         "time";
+
 
     time.textContent =
         getCurrentTime();
@@ -1120,9 +1305,11 @@ function addGoldMessage(text) {
         avatar
     );
 
+
     wrapper.appendChild(
         bubble
     );
+
 
     wrapper.appendChild(
         time
@@ -1133,45 +1320,59 @@ function addGoldMessage(text) {
         wrapper
     );
 
+
     scrollChat();
 
 }
 
 
 /* =====================================================
-   等待
+   等待訊息
    ===================================================== */
 
 function addWaitingMessage() {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "message goldMessage waiting";
+
 
     wrapper.id =
         "waitingMessage";
 
 
     const avatar =
-        document.createElement("img");
+        document.createElement(
+            "img"
+        );
+
 
     avatar.className =
         "avatar";
 
+
     avatar.src =
         "golden-pfp.png";
+
 
     avatar.alt =
         "Gold";
 
 
     const bubble =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     bubble.className =
         "bubble";
+
 
     bubble.textContent =
         "金正在思考……";
@@ -1181,6 +1382,7 @@ function addWaitingMessage() {
         avatar
     );
 
+
     wrapper.appendChild(
         bubble
     );
@@ -1189,6 +1391,7 @@ function addWaitingMessage() {
     chat.appendChild(
         wrapper
     );
+
 
     scrollChat();
 
@@ -1207,7 +1410,9 @@ function removeWaitingMessage() {
         );
 
 
-    if (waitingMessage) {
+    if (
+        waitingMessage
+    ) {
 
         waitingMessage.remove();
 
@@ -1230,7 +1435,7 @@ function rollD100() {
 
 
 /* =====================================================
-   正常 RANGE
+   正常 ±10
    ===================================================== */
 
 function getNormalRange() {
@@ -1257,7 +1462,7 @@ function getNormalRange() {
 
 
 /* =====================================================
-   中性 RANGE
+   中性 40～60
    ===================================================== */
 
 function getNeutralRange() {
@@ -1274,7 +1479,7 @@ function getNeutralRange() {
 
 
 /* =====================================================
-   同極性 RANGE
+   同極性
    ===================================================== */
 
 function getSamePolarityRange() {
@@ -1306,7 +1511,7 @@ function getSamePolarityRange() {
 
 
 /* =====================================================
-   反極性 RANGE
+   反極性
    ===================================================== */
 
 function getOppositePolarityRange() {
@@ -1338,7 +1543,7 @@ function getOppositePolarityRange() {
 
 
 /* =====================================================
-   RANGE 抽選
+   從 RANGE 抽數字
    ===================================================== */
 
 function pickFromRange(range) {
@@ -1358,7 +1563,7 @@ function pickFromRange(range) {
 
 
 /* =====================================================
-   D100 → 金反應
+   D100 → 金的回應編號
    ===================================================== */
 
 function getRandomReactionNumber() {
@@ -1443,7 +1648,8 @@ function getRandomReactionNumber() {
 
 
 /* =====================================================
-   沒有關鍵詞 → 中立隨機
+   沒命中關鍵詞時
+   -1 / 0 / +1 / +2
    ===================================================== */
 
 function getNeutralScore() {
@@ -1485,7 +1691,7 @@ function getNeutralScore() {
 
 
 /* =====================================================
-   ★ 計算詞語出現次數
+   計算詞語出現次數
    ===================================================== */
 
 function countOccurrences(
@@ -1503,9 +1709,11 @@ function countOccurrences(
     }
 
 
-    let count = 0;
+    let count =
+        0;
 
-    let position = 0;
+    let position =
+        0;
 
 
     while (true) {
@@ -1529,18 +1737,6 @@ function countOccurrences(
         count++;
 
 
-        /*
-           只往後移動一個字元。
-
-           因此：
-
-           哈
-           → 1
-
-           哈哈哈
-           → 3
-        */
-
         position =
             index + 1;
 
@@ -1553,12 +1749,14 @@ function countOccurrences(
 
 
 /* =====================================================
-   ★ 好感度計算
+   計算好感度
    ===================================================== */
 
 function calculateFeeling(text) {
 
-    if (!feelingData) {
+    if (
+        !feelingData
+    ) {
 
         return 0;
 
@@ -1628,6 +1826,7 @@ function calculateFeeling(text) {
                 totalScore +=
                     score *
                     count;
+
 
                 matched =
                     true;
@@ -1710,6 +1909,7 @@ function calculateFeeling(text) {
                     score *
                     count;
 
+
                 matched =
                     true;
 
@@ -1735,10 +1935,12 @@ function calculateFeeling(text) {
 
 
     /* =================================================
-       完全沒有命中
+       沒命中 → 中立隨機
        ================================================= */
 
-    if (!matched) {
+    if (
+        !matched
+    ) {
 
         const neutralScore =
             getNeutralScore();
@@ -1755,10 +1957,6 @@ function calculateFeeling(text) {
     }
 
 
-    /* =================================================
-       全部命中結果加總
-       ================================================= */
-
     console.log(
         "本次輸入總分:",
         totalScore
@@ -1771,7 +1969,74 @@ function calculateFeeling(text) {
 
 
 /* =====================================================
-   修改好感度
+   隨機 Emoji
+   ===================================================== */
+
+function getRandomEmoji(list) {
+
+    return list[
+        Math.floor(
+            Math.random() *
+            list.length
+        )
+    ];
+
+}
+
+
+/* =====================================================
+   飄浮 Emoji
+   ===================================================== */
+
+function createFloatingEmoji(
+    emoji,
+    x,
+    y
+) {
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+
+    element.className =
+        "floating-emoji";
+
+
+    element.textContent =
+        emoji;
+
+
+    element.style.left =
+        x + "px";
+
+
+    element.style.top =
+        y + "px";
+
+
+    document
+        .querySelector(".screen")
+        .appendChild(
+            element
+        );
+
+
+    setTimeout(
+        () => {
+
+            element.remove();
+
+        },
+        1300
+    );
+
+}
+
+
+/* =====================================================
+   好感度變化
    ===================================================== */
 
 function changeAffection(delta) {
@@ -1798,6 +2063,120 @@ function changeAffection(delta) {
         delta
     );
 
+
+    /* =================================================
+       正面 Emoji
+       ================================================= */
+
+    if (
+        delta > 0
+    ) {
+
+        const count =
+            Math.min(
+                3,
+
+                Math.max(
+                    1,
+
+                    Math.ceil(
+                        delta / 4
+                    )
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const emoji =
+                getRandomEmoji(
+                    positiveEmojis
+                );
+
+
+            const x =
+                65 +
+                Math.random() *
+                210;
+
+
+            const y =
+                380 +
+                Math.random() *
+                250;
+
+
+            createFloatingEmoji(
+                emoji,
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       負面 Emoji
+       ================================================= */
+
+    else if (
+        delta < 0
+    ) {
+
+        const count =
+            Math.min(
+                3,
+
+                Math.max(
+                    1,
+
+                    Math.ceil(
+                        Math.abs(delta) / 4
+                    )
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const emoji =
+                getRandomEmoji(
+                    negativeEmojis
+                );
+
+
+            const x =
+                65 +
+                Math.random() *
+                210;
+
+
+            const y =
+                380 +
+                Math.random() *
+                250;
+
+
+            createFloatingEmoji(
+                emoji,
+                x,
+                y
+            );
+
+        }
+
+    }
+
 }
 
 
@@ -1818,7 +2197,7 @@ function goGoldOffline() {
 
 
 /* =====================================================
-   發送桌布
+   傳送桌布
    ===================================================== */
 
 function addWallpaperFile() {
@@ -1842,7 +2221,10 @@ function addWallpaperFile() {
 
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "wallpaper-file";
@@ -1881,6 +2263,7 @@ function addWallpaperFile() {
         wrapper
     );
 
+
     scrollChat();
 
 }
@@ -1894,7 +2277,9 @@ function getReactionText(
     reactionNumber
 ) {
 
-    if (!talkingData) {
+    if (
+        !talkingData
+    ) {
 
         return "……";
 
@@ -1930,10 +2315,6 @@ function getReactionText(
 
 function respondToPlayer() {
 
-    /* ---------------------------------------------
-       100 → 發檔案
-       --------------------------------------------- */
-
     if (
         affection >= 100
     ) {
@@ -1944,10 +2325,6 @@ function respondToPlayer() {
 
     }
 
-
-    /* ---------------------------------------------
-       1～99 → D100
-       --------------------------------------------- */
 
     const reactionNumber =
         getRandomReactionNumber();
@@ -1967,7 +2344,7 @@ function respondToPlayer() {
 
 
 /* =====================================================
-   發送
+   發送訊息
    ===================================================== */
 
 function sendMessage() {
@@ -2009,7 +2386,6 @@ function sendMessage() {
 
     /* ---------------------------------------------
        金已離線
-       → 玩家仍然可以繼續冷輸出
        --------------------------------------------- */
 
     if (
@@ -2037,7 +2413,7 @@ function sendMessage() {
 
 
     /* ---------------------------------------------
-       0 → 金離線
+       0 → 離線
        --------------------------------------------- */
 
     if (
@@ -2052,14 +2428,16 @@ function sendMessage() {
 
 
     /* ---------------------------------------------
-       等待 1 秒
+       等待金反應
        --------------------------------------------- */
 
     waiting =
         true;
 
+
     sendButton.disabled =
         true;
+
 
     userInput.disabled =
         true;
@@ -2073,10 +2451,6 @@ function sendMessage() {
 
             removeWaitingMessage();
 
-
-            /* -----------------------------------------
-               100 → 桌布
-               ----------------------------------------- */
 
             if (
                 affection >= 100
@@ -2096,11 +2470,14 @@ function sendMessage() {
             waiting =
                 false;
 
+
             sendButton.disabled =
                 false;
 
+
             userInput.disabled =
                 false;
+
 
             userInput.focus();
 
@@ -2112,7 +2489,7 @@ function sendMessage() {
 
 
 /* =====================================================
-   按鈕
+   送出按鈕
    ===================================================== */
 
 sendButton.addEventListener(
@@ -2122,7 +2499,7 @@ sendButton.addEventListener(
 
 
 /* =====================================================
-   ENTER
+   Enter
    ===================================================== */
 
 userInput.addEventListener(
