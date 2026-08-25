@@ -760,97 +760,67 @@ let feelingData =
 
 async function loadGameData() {
 
+    /* =================================================
+       測試 1：金的語錄
+       ================================================= */
+
     try {
 
-             const talkingResponse =
+        const talkingResponse =
             await fetch(
                 "./golden-talking.json?v=" + Date.now()
             );
-        
+
         console.log(
-            "talking HTTP:",
+            "golden-talking HTTP:",
             talkingResponse.status,
             talkingResponse.ok
         );
-        
-        const talkingText =
-            await talkingResponse.text();
-        
-        console.log(
-            "talking 原始內容:",
-            talkingText
-        );
-        
-        talkingData =
-            JSON.parse(talkingText);
 
 
         if (!talkingResponse.ok) {
 
             throw new Error(
-                "無法載入 golden-talking.json"
+                "golden-talking.json HTTP " +
+                talkingResponse.status
             );
 
         }
+
+
+        const talkingText =
+            await talkingResponse.text();
+
+
+        console.log(
+            "golden-talking 原始內容:",
+            talkingText
+        );
 
 
         talkingData =
-            await talkingResponse.json();
-
-
-              const feelingResponse =
-            await fetch(
-                "./golden-feeling.json?v=" + Date.now()
-            );
-        
-        console.log(
-            "feeling HTTP:",
-            feelingResponse.status,
-            feelingResponse.ok
-        );
-        
-        const feelingText =
-            await feelingResponse.text();
-        
-        console.log(
-            "feeling 原始內容:",
-            feelingText
-        );
-        
-        feelingData =
-            JSON.parse(feelingText);
-
-
-        if (!feelingResponse.ok) {
-
-            throw new Error(
-                "無法載入 golden-feeling.json"
+            JSON.parse(
+                talkingText
             );
 
-        }
-
-
-        feelingData =
-            await feelingResponse.json();
-
 
         console.log(
-            "Golden Chat 資料載入完成"
+            "golden-talking JSON 解析成功"
         );
-
-
-        userInput.focus();
 
     }
+
     catch (error) {
 
         console.error(
+            "golden-talking.json 載入失敗:",
             error
         );
 
 
         addSystemMessage(
-            "遊戲資料載入失敗，請確認 JSON 檔案是否與 index.html 同層。"
+            "金的語錄載入失敗：" +
+            error.message
         );
 
 
@@ -860,7 +830,105 @@ async function loadGameData() {
         userInput.disabled =
             true;
 
+        return;
+
     }
+
+
+    /* =================================================
+       測試 2：好感度詞庫
+       ================================================= */
+
+    try {
+
+        const feelingResponse =
+            await fetch(
+                "./golden-feeling.json?v=" + Date.now()
+            );
+
+
+        console.log(
+            "golden-feeling HTTP:",
+            feelingResponse.status,
+            feelingResponse.ok
+        );
+
+
+        if (!feelingResponse.ok) {
+
+            throw new Error(
+                "golden-feeling.json HTTP " +
+                feelingResponse.status
+            );
+
+        }
+
+
+        const feelingText =
+            await feelingResponse.text();
+
+
+        console.log(
+            "golden-feeling 原始內容:",
+            feelingText
+        );
+
+
+        feelingData =
+            JSON.parse(
+                feelingText
+            );
+
+
+        console.log(
+            "golden-feeling JSON 解析成功"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "golden-feeling.json 載入失敗:",
+            error
+        );
+
+
+        addSystemMessage(
+            "好感度詞庫載入失敗：" +
+            error.message
+        );
+
+
+        sendButton.disabled =
+            true;
+
+        userInput.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    /* =================================================
+       全部成功
+       ================================================= */
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "GOLDEN-WIFU1.0 資料全部載入成功"
+    );
+
+    console.log(
+        "================================"
+    );
+
+
+    userInput.focus();
 
 }
 
