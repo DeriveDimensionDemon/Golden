@@ -12,12 +12,7 @@
 
 <title>GOLDEN-WIFU1.0</title>
 
-
 <style>
-
-/* =====================================================
-   基本設定
-   ===================================================== */
 
 * {
     box-sizing: border-box;
@@ -49,7 +44,7 @@ body {
 
 
 /* =====================================================
-   顏色
+   顏色設定
    ===================================================== */
 
 :root {
@@ -73,7 +68,6 @@ body {
             255,
             var(--bubble-opacity)
         );
-
 }
 
 
@@ -94,8 +88,7 @@ body {
     background:
         var(--phone-color);
 
-    border-radius:
-        38px;
+    border-radius: 38px;
 
     box-shadow:
         0 15px 50px
@@ -106,7 +99,7 @@ body {
 
 
 /* =====================================================
-   手機螢幕
+   螢幕
    ===================================================== */
 
 .screen {
@@ -118,8 +111,7 @@ body {
 
     overflow: hidden;
 
-    border-radius:
-        29px;
+    border-radius: 29px;
 
     background-image:
         url("golden-wifu.jpg");
@@ -162,11 +154,9 @@ body {
     backdrop-filter:
         blur(8px);
 
-    color:
-        white;
+    color: white;
 
-    z-index:
-        20;
+    z-index: 20;
 }
 
 
@@ -178,14 +168,11 @@ body {
     flex:
         0 0 42px;
 
-    margin-right:
-        10px;
+    margin-right: 10px;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    object-fit:
-        cover;
+    object-fit: cover;
 
     border:
         2px solid white;
@@ -206,27 +193,21 @@ body {
 
 .header-name {
 
-    font-size:
-        18px;
+    font-size: 18px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    line-height:
-        1.2;
+    line-height: 1.2;
 }
 
 
 .header-status {
 
-    margin-top:
-        3px;
+    margin-top: 3px;
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    opacity:
-        0.75;
+    opacity: 0.75;
 }
 
 
@@ -238,41 +219,26 @@ body {
 
     position: absolute;
 
-    top:
-        68px;
+    top: 68px;
 
-    left:
-        0;
+    left: 0;
 
-    right:
-        0;
+    right: 0;
 
-    width:
-        100%;
+    width: 100%;
 
-    /*
-       固定 9:16
-
-       360 × 640
-    */
-
-    height:
-        640px;
+    height: 640px;
 
     padding:
         15px 11px;
 
-    overflow-y:
-        auto;
+    overflow-y: auto;
 
-    overflow-x:
-        hidden;
+    overflow-x: hidden;
 
-    z-index:
-        5;
+    z-index: 5;
 
-    scrollbar-width:
-        thin;
+    scrollbar-width: thin;
 }
 
 
@@ -282,37 +248,29 @@ body {
 
 .message {
 
-    display:
-        flex;
+    display: flex;
 
-    width:
-        100%;
+    width: 100%;
 
-    align-items:
-        flex-end;
+    align-items: flex-end;
 
-    gap:
-        6px;
+    gap: 6px;
 
-    margin-bottom:
-        12px;
+    margin-bottom: 12px;
 
-    flex-shrink:
-        0;
+    flex-shrink: 0;
 }
 
 
 .goldMessage {
 
-    justify-content:
-        flex-start;
+    justify-content: flex-start;
 }
 
 
 .userMessage {
 
-    justify-content:
-        flex-end;
+    justify-content: flex-end;
 }
 
 
@@ -322,20 +280,15 @@ body {
 
 .avatar {
 
-    width:
-        38px;
-
-    height:
-        38px;
+    width: 38px;
+    height: 38px;
 
     flex:
         0 0 38px;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    object-fit:
-        cover;
+    object-fit: cover;
 
     border:
         2px solid white;
@@ -355,23 +308,18 @@ body {
 
 .bubble {
 
-    max-width:
-        72%;
+    max-width: 72%;
 
     padding:
         9px 13px;
 
-    border-radius:
-        18px;
+    border-radius: 18px;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    line-height:
-        1.45;
+    line-height: 1.45;
 
-    word-break:
-        break-word;
+    word-break: break-word;
 
     box-shadow:
         0 3px 10px
@@ -379,37 +327,25 @@ body {
 }
 
 
-/* =====================================================
-   金訊息：白色 70%
-   ===================================================== */
-
 .goldMessage .bubble {
 
     background:
         var(--gold-color);
 
-    color:
-        #222;
+    color: #222;
 
-    border-bottom-left-radius:
-        5px;
+    border-bottom-left-radius: 5px;
 }
 
-
-/* =====================================================
-   玩家訊息：橘色 70%
-   ===================================================== */
 
 .userMessage .bubble {
 
     background:
         var(--user-color);
 
-    color:
-        white;
+    color: white;
 
-    border-bottom-right-radius:
-        5px;
+    border-bottom-right-radius: 5px;
 }
 
 
@@ -422,11 +358,9 @@ body {
     background:
         rgba(255, 255, 255, 0.70);
 
-    color:
-        #666;
+    color: #666;
 
-    font-style:
-        italic;
+    font-style: italic;
 }
 
 
@@ -439,22 +373,18 @@ body {
     margin:
         0 2px 3px;
 
-    font-size:
-        9px;
+    font-size: 9px;
 
-    color:
-        white;
+    color: white;
 
-    opacity:
-        0.85;
+    opacity: 0.85;
 
-    flex-shrink:
-        0;
+    flex-shrink: 0;
 }
 
 
 /* =====================================================
-   桌布檔案
+   檔案
    ===================================================== */
 
 .wallpaper-file {
@@ -462,32 +392,24 @@ body {
     width:
         calc(100% - 45px);
 
-    margin-left:
-        44px;
+    margin-left: 44px;
 
-    margin-bottom:
-        15px;
+    margin-bottom: 15px;
 
-    padding:
-        12px;
+    padding: 12px;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        9px;
+    gap: 9px;
 
-    border-radius:
-        15px;
+    border-radius: 15px;
 
     background:
         rgba(255, 255, 255, 0.70);
 
-    color:
-        #222;
+    color: #222;
 
     box-shadow:
         0 4px 12px
@@ -497,78 +419,60 @@ body {
 
 .file-icon {
 
-    font-size:
-        26px;
+    font-size: 26px;
 
-    flex-shrink:
-        0;
+    flex-shrink: 0;
 }
 
 
 .file-info {
 
-    min-width:
-        0;
+    min-width: 0;
 
-    flex:
-        1;
+    flex: 1;
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 }
 
 
 .file-info strong {
 
-    font-size:
-        13px;
+    font-size: 13px;
 }
 
 
 .file-info small {
 
-    margin-top:
-        3px;
+    margin-top: 3px;
 
-    font-size:
-        9px;
+    font-size: 9px;
 
-    word-break:
-        break-all;
+    word-break: break-all;
 
-    opacity:
-        0.70;
+    opacity: 0.70;
 }
 
 
 .file-download {
 
-    flex-shrink:
-        0;
+    flex-shrink: 0;
 
     padding:
         7px 10px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    background:
-        #d1a26b;
+    background: #d1a26b;
 
-    color:
-        white;
+    color: white;
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
 
@@ -578,29 +482,19 @@ body {
 
 #inputArea {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    right:
-        0;
+    height: 68px;
 
-    bottom:
-        0;
+    display: flex;
 
-    height:
-        68px;
+    align-items: center;
 
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        7px;
+    gap: 7px;
 
     padding:
         9px 10px;
@@ -611,88 +505,62 @@ body {
     backdrop-filter:
         blur(10px);
 
-    z-index:
-        20;
+    z-index: 20;
 }
 
 
-/* =====================================================
-   輸入框
-   ===================================================== */
-
 #userInput {
 
-    flex:
-        1;
+    flex: 1;
 
-    min-width:
-        0;
+    min-width: 0;
 
-    height:
-        38px;
+    height: 38px;
 
     padding:
         0 15px;
 
-    border:
-        none;
+    border: none;
 
-    outline:
-        none;
+    outline: none;
 
-    border-radius:
-        20px;
+    border-radius: 20px;
 
     background:
         rgba(255, 255, 255, 0.95);
 
-    color:
-        #333;
+    color: #333;
 
-    font-size:
-        13px;
+    font-size: 13px;
 }
 
 
 #userInput::placeholder {
 
-    color:
-        #999;
+    color: #999;
 }
 
 
-/* =====================================================
-   發送按鈕
-   ===================================================== */
-
 #sendButton {
 
-    width:
-        38px;
-
-    height:
-        38px;
+    width: 38px;
+    height: 38px;
 
     flex:
         0 0 38px;
 
-    border:
-        none;
+    border: none;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
     background:
         rgba(255, 255, 255, 0.18);
 
-    color:
-        white;
+    color: white;
 
-    font-size:
-        17px;
+    font-size: 17px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
@@ -705,16 +573,14 @@ body {
 
 #sendButton:disabled {
 
-    opacity:
-        0.45;
+    opacity: 0.45;
 
-    cursor:
-        default;
+    cursor: default;
 }
 
 
 /* =====================================================
-   小螢幕縮放
+   小螢幕
    ===================================================== */
 
 @media (max-height: 820px) {
@@ -781,14 +647,14 @@ body {
 
 
         <!-- =================================================
-             聊天區
+             聊天
              ================================================= -->
 
         <div id="chat"></div>
 
 
         <!-- =================================================
-             輸入區
+             輸入
              ================================================= -->
 
         <div id="inputArea">
@@ -817,98 +683,48 @@ body {
 
 <script>
 
+
 /* =====================================================
    遊戲設定
    ===================================================== */
 
 const GAME_CONFIG = {
 
-    /*
-       初始好感度
-    */
-
     startingAffection: 50,
-
-
-    /*
-       好感度上下限
-    */
 
     minAffection: 0,
 
     maxAffection: 100,
 
-
-    /*
-       正常 RANGE：
-
-       好感度 ±10
-
-       並限制在 #1～#99
-    */
-
     reactionRange: 10,
 
-
-    /*
-       金思考時間
-    */
-
     reactionDelay: 1000,
-
-
-    /*
-       特殊狀態
-    */
 
     offlineAffection: 0,
 
     rewardAffection: 100,
 
 
-    /*
-       D100 抽選
-    */
+    /* ---------------------------------------------
+       D100
+       --------------------------------------------- */
 
     d100: {
 
-        /*
-           01～70
-           正常 ±10
-        */
-
         normalMax: 70,
-
-
-        /*
-           71～85
-           中性 #40～#60
-        */
 
         neutralMax: 85,
 
-
-        /*
-           86～95
-           同極性
-        */
-
         samePolarityMax: 95,
-
-
-        /*
-           96～100
-           反極性
-        */
 
         oppositePolarityMax: 100
 
     },
 
 
-    /*
-       圖片
-    */
+    /* ---------------------------------------------
+       檔案
+       --------------------------------------------- */
 
     gameWallpaper:
         "golden-wifu.jpg",
@@ -937,7 +753,7 @@ const headerStatus =
 
 
 /* =====================================================
-   狀態
+   遊戲狀態
    ===================================================== */
 
 let affection =
@@ -957,11 +773,9 @@ let rewardSent =
    JSON
    ===================================================== */
 
-let talkingData =
-    null;
+let talkingData = null;
 
-let feelingData =
-    null;
+let feelingData = null;
 
 
 /* =====================================================
@@ -1382,14 +1196,9 @@ function getNeutralRange() {
 
 function getSamePolarityRange() {
 
-    /*
-       好感 50～99：
-
-       高極性
-       #61～#99
-    */
-
-    if (affection >= 50) {
+    if (
+        affection >= 50
+    ) {
 
         return {
 
@@ -1401,13 +1210,6 @@ function getSamePolarityRange() {
 
     }
 
-
-    /*
-       好感 1～49：
-
-       低極性
-       #1～#39
-    */
 
     return {
 
@@ -1426,14 +1228,9 @@ function getSamePolarityRange() {
 
 function getOppositePolarityRange() {
 
-    /*
-       好感 50～99：
-
-       低極性
-       #1～#39
-    */
-
-    if (affection >= 50) {
+    if (
+        affection >= 50
+    ) {
 
         return {
 
@@ -1445,13 +1242,6 @@ function getOppositePolarityRange() {
 
     }
 
-
-    /*
-       好感 1～49：
-
-       高極性
-       #61～#99
-    */
 
     return {
 
@@ -1465,7 +1255,7 @@ function getOppositePolarityRange() {
 
 
 /* =====================================================
-   從 RANGE 中抽一個反應
+   RANGE 抽選
    ===================================================== */
 
 function pickFromRange(range) {
@@ -1485,16 +1275,10 @@ function pickFromRange(range) {
 
 
 /* =====================================================
-   ★ D100 金的反應抽選
+   D100 金反應
    ===================================================== */
 
 function getRandomReactionNumber() {
-
-    /*
-       每次正常回應：
-
-       擲 D100
-    */
 
     const roll =
         rollD100();
@@ -1505,12 +1289,10 @@ function getRandomReactionNumber() {
     let resultType;
 
 
-    /*
-       =================================================
+    /* ---------------------------------------------
        01～70
-       NORMAL
-       =================================================
-    */
+       正常 ±10
+       --------------------------------------------- */
 
     if (
         roll <=
@@ -1523,15 +1305,14 @@ function getRandomReactionNumber() {
         resultType =
             "NORMAL";
 
-
-    /*
-       =================================================
-       71～85
-       NEUTRAL
-       =================================================
-    */
-
     }
+
+
+    /* ---------------------------------------------
+       71～85
+       中性 #40～#60
+       --------------------------------------------- */
+
     else if (
         roll <=
         GAME_CONFIG.d100.neutralMax
@@ -1543,15 +1324,14 @@ function getRandomReactionNumber() {
         resultType =
             "NEUTRAL";
 
-
-    /*
-       =================================================
-       86～95
-       SAME POLARITY
-       =================================================
-    */
-
     }
+
+
+    /* ---------------------------------------------
+       86～95
+       同極性
+       --------------------------------------------- */
+
     else if (
         roll <=
         GAME_CONFIG.d100.samePolarityMax
@@ -1563,15 +1343,14 @@ function getRandomReactionNumber() {
         resultType =
             "SAME";
 
-
-    /*
-       =================================================
-       96～100
-       OPPOSITE POLARITY
-       =================================================
-    */
-
     }
+
+
+    /* ---------------------------------------------
+       96～100
+       反極性
+       --------------------------------------------- */
+
     else {
 
         range =
@@ -1582,15 +1361,6 @@ function getRandomReactionNumber() {
 
     }
 
-
-    /*
-       開發測試用：
-
-       Console 可以看到這次
-       D100 到底骰到了什麼。
-
-       玩家畫面不會看到。
-    */
 
     console.log(
         "D100:",
@@ -1613,7 +1383,7 @@ function getRandomReactionNumber() {
 
 
 /* =====================================================
-   中立發言的隨機變化
+   沒有關鍵詞時的中立分數
    ===================================================== */
 
 function getNeutralScore() {
@@ -1622,42 +1392,32 @@ function getNeutralScore() {
         Math.random();
 
 
-    /*
-       -1 → 20%
-    */
-
-    if (random < 0.20) {
+    if (
+        random < 0.20
+    ) {
 
         return -1;
 
     }
 
 
-    /*
-       0 → 50%
-    */
-
-    if (random < 0.70) {
+    if (
+        random < 0.70
+    ) {
 
         return 0;
 
     }
 
 
-    /*
-       +1 → 25%
-    */
-
-    if (random < 0.95) {
+    if (
+        random < 0.95
+    ) {
 
         return 1;
 
     }
 
-
-    /*
-       +2 → 5%
-    */
 
     return 2;
 
@@ -1665,7 +1425,76 @@ function getNeutralScore() {
 
 
 /* =====================================================
-   計算玩家輸入造成的好感度
+   ★ 計算某個詞出現幾次
+   ===================================================== */
+
+function countOccurrences(
+    text,
+    word
+) {
+
+    if (
+        !word ||
+        word.length === 0
+    ) {
+
+        return 0;
+
+    }
+
+
+    let count = 0;
+
+    let position = 0;
+
+
+    while (true) {
+
+        const index =
+            text.indexOf(
+                word,
+                position
+            );
+
+
+        if (
+            index === -1
+        ) {
+
+            break;
+
+        }
+
+
+        count++;
+
+        /*
+           往後移動一個字元。
+
+           這樣如果：
+
+           哈哈哈
+
+           word = 哈
+
+           就會得到：
+
+           3 次
+        */
+
+        position =
+            index + 1;
+
+    }
+
+
+    return count;
+
+}
+
+
+/* =====================================================
+   ★ 計算玩家輸入造成的好感度
    ===================================================== */
 
 function calculateFeeling(text) {
@@ -1686,7 +1515,10 @@ function calculateFeeling(text) {
 
     /*
        =================================================
-       正面
+       正面詞庫
+
+       每一個詞：
+       出現幾次就算幾次
        =================================================
     */
 
@@ -1705,7 +1537,9 @@ function calculateFeeling(text) {
             feelingData[key];
 
 
-        if (!Array.isArray(words)) {
+        if (
+            !Array.isArray(words)
+        ) {
 
             continue;
 
@@ -1726,17 +1560,37 @@ function calculateFeeling(text) {
             }
 
 
+            const count =
+                countOccurrences(
+                    text,
+                    word
+                );
+
+
             if (
-                text.includes(word)
+                count > 0
             ) {
 
                 totalScore +=
-                    score;
+                    score *
+                    count;
 
                 matched =
                     true;
 
-                break;
+
+                console.log(
+                    "正面:",
+                    word,
+                    "x",
+                    count,
+                    "=",
+                    "+" +
+                    (
+                        score *
+                        count
+                    )
+                );
 
             }
 
@@ -1747,7 +1601,11 @@ function calculateFeeling(text) {
 
     /*
        =================================================
-       負面
+       負面詞庫
+
+       同樣：
+
+       出現幾次就扣幾次
        =================================================
     */
 
@@ -1766,7 +1624,9 @@ function calculateFeeling(text) {
             feelingData[key];
 
 
-        if (!Array.isArray(words)) {
+        if (
+            !Array.isArray(words)
+        ) {
 
             continue;
 
@@ -1787,17 +1647,37 @@ function calculateFeeling(text) {
             }
 
 
+            const count =
+                countOccurrences(
+                    text,
+                    word
+                );
+
+
             if (
-                text.includes(word)
+                count > 0
             ) {
 
                 totalScore -=
-                    score;
+                    score *
+                    count;
 
                 matched =
                     true;
 
-                break;
+
+                console.log(
+                    "負面:",
+                    word,
+                    "x",
+                    count,
+                    "=",
+                    "-" +
+                    (
+                        score *
+                        count
+                    )
+                );
 
             }
 
@@ -1807,16 +1687,40 @@ function calculateFeeling(text) {
 
 
     /*
-       沒有任何關鍵詞：
+       =================================================
+       完全沒有任何關鍵詞
 
-       -1 / 0 / +1 / +2
+       才使用中立隨機
+       =================================================
     */
 
     if (!matched) {
 
-        return getNeutralScore();
+        const neutralScore =
+            getNeutralScore();
+
+
+        console.log(
+            "沒有命中關鍵詞 → 中立:",
+            neutralScore
+        );
+
+
+        return neutralScore;
 
     }
+
+
+    /*
+       =================================================
+       最終全部加總
+       =================================================
+    */
+
+    console.log(
+        "本次輸入總分:",
+        totalScore
+    );
 
 
     return totalScore;
@@ -1845,9 +1749,9 @@ function changeAffection(delta) {
 
 
     console.log(
-        "Affection:",
+        "目前好感度:",
         affection,
-        "Delta:",
+        "本次變化:",
         delta
     );
 
@@ -1876,7 +1780,9 @@ function goGoldOffline() {
 
 function addWallpaperFile() {
 
-    if (rewardSent) {
+    if (
+        rewardSent
+    ) {
 
         return;
 
@@ -1938,7 +1844,7 @@ function addWallpaperFile() {
 
 
 /* =====================================================
-   取得金的文字
+   取得金的台詞
    ===================================================== */
 
 function getReactionText(
@@ -1954,7 +1860,9 @@ function getReactionText(
 
     const text =
         talkingData[
-            String(reactionNumber)
+            String(
+                reactionNumber
+            )
         ];
 
 
@@ -1982,7 +1890,7 @@ function respondToPlayer() {
     /*
        100：
 
-       發送檔案
+       特殊事件
     */
 
     if (
@@ -2000,7 +1908,7 @@ function respondToPlayer() {
     /*
        1～99：
 
-       D100 抽選
+       D100
     */
 
     const reactionNumber =
@@ -2026,11 +1934,9 @@ function respondToPlayer() {
 
 function sendMessage() {
 
-    /*
-       等待金回覆
-    */
-
-    if (waiting) {
+    if (
+        waiting
+    ) {
 
         return;
 
@@ -2041,7 +1947,9 @@ function sendMessage() {
         userInput.value.trim();
 
 
-    if (!text) {
+    if (
+        !text
+    ) {
 
         return;
 
@@ -2062,13 +1970,15 @@ function sendMessage() {
 
 
     /*
-       金已經離線：
+       金已離線：
 
-       玩家可以繼續講，
-       但不會再得到回覆。
+       仍然可以輸入，
+       但她不再回答。
     */
 
-    if (goldOffline) {
+    if (
+        goldOffline
+    ) {
 
         return;
 
@@ -2091,9 +2001,9 @@ function sendMessage() {
 
 
     /*
-       到 0：
+       0：
 
-       立即離線。
+       金離線
     */
 
     if (
@@ -2109,6 +2019,60 @@ function sendMessage() {
 
 
     /*
+       100：
+
+       下一個階段直接發檔案。
+       不再進入 D100。
+    */
+
+    if (
+        affection >=
+        GAME_CONFIG.rewardAffection
+    ) {
+
+        waiting =
+            true;
+
+        sendButton.disabled =
+            true;
+
+        userInput.disabled =
+            true;
+
+        addWaitingMessage();
+
+
+        setTimeout(
+            () => {
+
+                removeWaitingMessage();
+
+                respondToPlayer();
+
+                waiting =
+                    false;
+
+                sendButton.disabled =
+                    false;
+
+                userInput.disabled =
+                    false;
+
+                userInput.focus();
+
+            },
+            GAME_CONFIG.reactionDelay
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+       一般回應：
+
        等待 1 秒
     */
 
@@ -2129,7 +2093,6 @@ function sendMessage() {
         () => {
 
             removeWaitingMessage();
-
 
             respondToPlayer();
 
