@@ -762,10 +762,27 @@ async function loadGameData() {
 
     try {
 
-        const talkingResponse =
+             const talkingResponse =
             await fetch(
-                "./golden-talking.json?v=2"
+                "./golden-talking.json?v=" + Date.now()
             );
+        
+        console.log(
+            "talking HTTP:",
+            talkingResponse.status,
+            talkingResponse.ok
+        );
+        
+        const talkingText =
+            await talkingResponse.text();
+        
+        console.log(
+            "talking 原始內容:",
+            talkingText
+        );
+        
+        talkingData =
+            JSON.parse(talkingText);
 
 
         if (!talkingResponse.ok) {
@@ -781,10 +798,27 @@ async function loadGameData() {
             await talkingResponse.json();
 
 
-        const feelingResponse =
+              const feelingResponse =
             await fetch(
-                "./golden-feeling.json?v=2"
+                "./golden-feeling.json?v=" + Date.now()
             );
+        
+        console.log(
+            "feeling HTTP:",
+            feelingResponse.status,
+            feelingResponse.ok
+        );
+        
+        const feelingText =
+            await feelingResponse.text();
+        
+        console.log(
+            "feeling 原始內容:",
+            feelingText
+        );
+        
+        feelingData =
+            JSON.parse(feelingText);
 
 
         if (!feelingResponse.ok) {
