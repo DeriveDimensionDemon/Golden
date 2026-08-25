@@ -693,57 +693,6 @@ body {
 }
 
 
-
-/* =====================================================
-   單頁截圖按鈕
-   ===================================================== */
-
-.screenshot-tools {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.screenshot-button {
-    width: 39px;
-    height: 39px;
-    padding: 2px;
-    border: none;
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 9px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.screenshot-button img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.screenshot-button:hover {
-    background: rgba(255, 255, 255, 0.16);
-}
-
-.screenshot-button:active {
-    transform: scale(0.94);
-}
-
-.screenshot-button:disabled {
-    opacity: 0.55;
-    cursor: wait;
-}
-
-.screenshot-button:focus-visible {
-    outline: 1px solid rgba(255, 255, 255, 0.8);
-    outline-offset: 1px;
-}
-
 /* =====================================================
    小螢幕縮放
    ===================================================== */
@@ -808,21 +757,6 @@ body {
 
             </div>
 
-            <div class="screenshot-tools">
-                <button
-                    id="singleScreenshotButton"
-                    class="screenshot-button"
-                    type="button"
-                    title="單頁截圖"
-                    aria-label="單頁截圖"
-                >
-                    <img
-                        src="screenshot_single.png"
-                        alt="單頁截圖"
-                    >
-                </button>
-            </div>
-
         </div>
 
 
@@ -876,8 +810,6 @@ body {
 
 </div>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 
@@ -945,89 +877,6 @@ const sendButton =
 const headerStatus =
     document.getElementById("headerStatus");
 
-const screenElement =
-    document.querySelector(".screen");
-
-const singleScreenshotButton =
-    document.getElementById("singleScreenshotButton");
-
-
-
-
-/* =====================================================
-   單頁截圖
-   ===================================================== */
-
-async function captureSinglePage() {
-
-    if (
-        typeof html2canvas === "undefined"
-    ) {
-
-        alert(
-            "截圖工具尚未載入，請稍後再試。"
-        );
-
-        return;
-
-    }
-
-    singleScreenshotButton.disabled = true;
-
-    try {
-
-        const canvas =
-            await html2canvas(
-                screenElement,
-                {
-                    backgroundColor: null,
-                    useCORS: true,
-                    scale: 2,
-                    logging: false,
-                    scrollX: 0,
-                    scrollY: 0
-                }
-            );
-
-        const link =
-            document.createElement("a");
-
-        link.download =
-            "golden-wifu1.0-single.png";
-
-        link.href =
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "單頁截圖失敗:",
-            error
-        );
-
-        alert(
-            "單頁截圖失敗，請再試一次。"
-        );
-
-    }
-
-    finally {
-
-        singleScreenshotButton.disabled = false;
-
-    }
-
-}
-
-
-singleScreenshotButton.addEventListener(
-    "click",
-    captureSinglePage
-);
 
 /* =====================================================
    遊戲狀態
