@@ -693,6 +693,114 @@ body {
 }
 
 
+
+/* =====================================================
+   截圖按鈕
+   ===================================================== */
+
+.screenshot-tools {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.screenshot-button {
+    width: 39px;
+    height: 39px;
+    padding: 2px;
+    border: none;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.screenshot-button img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.screenshot-button:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.screenshot-button:active {
+    transform: scale(0.94);
+}
+
+.screenshot-button:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 1px;
+}
+
+/* 全頁截圖時的暫存渲染區 */
+#screenshotRenderArea {
+    position: fixed;
+    left: -100000px;
+    top: 0;
+    width: 360px;
+    pointer-events: none;
+    opacity: 1;
+    z-index: -9999;
+}
+
+#screenshotRenderArea .screen {
+    position: relative !important;
+    width: 342px !important;
+    height: auto !important;
+    min-height: 794px;
+    overflow: hidden !important;
+    border-radius: 29px !important;
+    background-image: url("golden-wifu.jpg") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+#screenshotRenderArea .chat-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+}
+
+#screenshotRenderArea #chat {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 15px !important;
+}
+
+#screenshotRenderArea #inputArea {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+#screenshotRenderArea #siteFooter {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+#screenshotRenderArea .screenshot-tools {
+    display: none !important;
+}
+
 /* =====================================================
    小螢幕縮放
    ===================================================== */
@@ -757,6 +865,34 @@ body {
 
             </div>
 
+            <div class="screenshot-tools">
+                <button
+                    id="singleScreenshotButton"
+                    class="screenshot-button"
+                    type="button"
+                    title="單頁截圖"
+                    aria-label="單頁截圖"
+                >
+                    <img
+                        src="screenshot_single.png"
+                        alt="單頁截圖"
+                    >
+                </button>
+
+                <button
+                    id="longScreenshotButton"
+                    class="screenshot-button"
+                    type="button"
+                    title="全頁截圖"
+                    aria-label="全頁截圖"
+                >
+                    <img
+                        src="screenshot_longpage.png"
+                        alt="全頁截圖"
+                    >
+                </button>
+            </div>
+
         </div>
 
 
@@ -810,6 +946,8 @@ body {
 
 </div>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 
@@ -877,6 +1015,277 @@ const sendButton =
 const headerStatus =
     document.getElementById("headerStatus");
 
+const screenElement =
+    document.querySelector(".screen");
+
+const singleScreenshotButton =
+    document.getElementById("singleScreenshotButton");
+
+const longScreenshotButton =
+    document.getElementById("longScreenshotButton");
+
+
+
+
+/* =====================================================
+   截圖
+   ===================================================== */
+
+function downloadCanvas(
+    canvas,
+    filename
+) {
+
+    const link =
+        document.createElement("a");
+
+    link.download =
+        filename;
+
+    link.href =
+        canvas.toDataURL("image/png");
+
+    link.click();
+
+}
+
+
+async function captureSinglePage() {
+
+    if (
+        typeof html2canvas === "undefined"
+    ) {
+
+        alert(
+            "截圖工具尚未載入，請稍後再試。"
+        );
+
+        return;
+
+    }
+
+    singleScreenshotButton.disabled = true;
+
+    try {
+
+        const canvas =
+            await html2canvas(
+                screenElement,
+                {
+                    backgroundColor: null,
+                    useCORS: true,
+                    scale: 2,
+                    logging: false
+                }
+            );
+
+        downloadCanvas(
+            canvas,
+            "golden-wifu1.0-single.png"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "單頁截圖失敗:",
+            error
+        );
+
+        alert(
+            "單頁截圖失敗，請再試一次。"
+        );
+
+    }
+
+    finally {
+
+        singleScreenshotButton.disabled = false;
+
+    }
+
+}
+
+
+async function captureLongPage() {
+
+    if (
+        typeof html2canvas === "undefined"
+    ) {
+
+        alert(
+            "截圖工具尚未載入，請稍後再試。"
+        );
+
+        return;
+
+    }
+
+    longScreenshotButton.disabled = true;
+
+    const originalScrollTop =
+        chat.scrollTop;
+
+    const originalWidth =
+        screenElement.offsetWidth;
+
+    const cloneHost =
+        document.createElement("div");
+
+    cloneHost.id =
+        "screenshotRenderArea";
+
+    const clone =
+        screenElement.cloneNode(true);
+
+    cloneHost.appendChild(
+        clone
+    );
+
+    document.body.appendChild(
+        cloneHost
+    );
+
+    try {
+
+        const clonedChat =
+            clone.querySelector("#chat");
+
+        const clonedInputArea =
+            clone.querySelector("#inputArea");
+
+        const clonedFooter =
+            clone.querySelector("#siteFooter");
+
+        const clonedHeader =
+            clone.querySelector(".chat-header");
+
+        const chatHeight =
+            chat.scrollHeight;
+
+        /*
+         * 讓暫存畫布按照「整段聊天」自然向下延伸。
+         * Header、輸入區、Footer 仍保留，因此得到的是
+         * 一張完整的手機聊天長圖，而不是只有聊天文字。
+         */
+
+        clonedChat.style.height =
+            chatHeight + "px";
+
+        clonedChat.style.maxHeight =
+            "none";
+
+        clonedChat.style.overflow =
+            "visible";
+
+        clonedChat.style.width =
+            "100%";
+
+        clonedChat.style.paddingBottom =
+            "15px";
+
+        const headerHeight =
+            clonedHeader.offsetHeight;
+
+        const inputHeight =
+            clonedInputArea.offsetHeight;
+
+        const footerHeight =
+            clonedFooter.offsetHeight;
+
+        const totalHeight =
+            headerHeight +
+            chatHeight +
+            inputHeight +
+            footerHeight;
+
+        clone.style.width =
+            originalWidth + "px";
+
+        clone.style.height =
+            totalHeight + "px";
+
+        clone.style.minHeight =
+            totalHeight + "px";
+
+        cloneHost.style.width =
+            originalWidth + "px";
+
+        /*
+         * 避免克隆版的截圖按鈕自己出現在截圖裡。
+         */
+        const clonedTools =
+            clone.querySelector(".screenshot-tools");
+
+        if (clonedTools) {
+            clonedTools.style.display =
+                "none";
+        }
+
+        const canvas =
+            await html2canvas(
+                clone,
+                {
+                    backgroundColor: null,
+                    useCORS: true,
+                    scale: 2,
+                    logging: false,
+                    windowWidth: Math.max(
+                        document.documentElement.clientWidth,
+                        originalWidth
+                    ),
+                    windowHeight: Math.max(
+                        document.documentElement.clientHeight,
+                        totalHeight
+                    )
+                }
+            );
+
+        downloadCanvas(
+            canvas,
+            "golden-wifu1.0-full-page.png"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "全頁截圖失敗:",
+            error
+        );
+
+        alert(
+            "全頁截圖失敗，請再試一次。"
+        );
+
+    }
+
+    finally {
+
+        cloneHost.remove();
+
+        chat.scrollTop =
+            originalScrollTop;
+
+        longScreenshotButton.disabled =
+            false;
+
+    }
+
+}
+
+
+singleScreenshotButton.addEventListener(
+    "click",
+    captureSinglePage
+);
+
+longScreenshotButton.addEventListener(
+    "click",
+    captureLongPage
+);
 
 /* =====================================================
    遊戲狀態
