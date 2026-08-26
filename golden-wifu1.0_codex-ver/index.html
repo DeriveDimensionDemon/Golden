@@ -906,14 +906,14 @@ body {
 
         <div id="quoteOverlay" aria-hidden="true">
             <div class="quote-review-header">
-                <div class="quote-review-title">語錄回顧</div>
+                <div id="quoteReviewTitle" class="quote-review-title">語錄回顧 (0/100)</div>
                 <button id="quoteCloseButton" type="button" aria-label="關閉">×</button>
             </div>
 
             <div id="quoteList"></div>
 
             <div class="quote-review-footer">
-                <p class="quote-review-note">※獲得新語錄時，自動以瀏覽器暫存功能存檔。<br>如果您想重置語錄收藏進度為初始狀態，請點這裡［重置］，此動作無法復原！</p>
+                <p class="quote-review-note">妳偷偷記下了金說過的話... ※獲得新語錄時，自動以瀏覽器暫存功能存檔。<br>如果您想重置語錄收藏進度為初始狀態，請點這裡［重置］，此動作無法復原！</p>
                 <button id="quoteResetButton" type="button">重置</button>
             </div>
         </div>
@@ -1048,6 +1048,9 @@ const quoteCloseButton =
 const quoteList =
     document.getElementById("quoteList");
 
+const quoteReviewTitle =
+    document.getElementById("quoteReviewTitle");
+
 const quoteResetButton =
     document.getElementById("quoteResetButton");
 
@@ -1131,6 +1134,11 @@ function renderQuoteList() {
         (a, b) => Number(a) - Number(b)
     );
 
+    if (quoteReviewTitle) {
+        quoteReviewTitle.textContent =
+            "語錄回顧 (" + ids.length + "/100)";
+    }
+
     if (ids.length === 0) {
         quoteList.innerHTML =
             '<div class="quote-empty">目前還沒有解鎖語錄。<br>和金聊天，遇到新的回覆就會自動收藏。</div>';
@@ -1143,7 +1151,7 @@ function renderQuoteList() {
 
         const number = document.createElement("div");
         number.className = "quote-item-id";
-        number.textContent = "語錄 #" + id;
+        number.textContent = "♡ 語錄 #" + id;
 
         const text = document.createElement("div");
         text.className = "quote-item-text";
