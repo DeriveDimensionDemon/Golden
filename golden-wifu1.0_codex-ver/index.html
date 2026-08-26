@@ -1,0 +1,2586 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GOLDEN-WIFU1.0</title>
+
+<style>
+
+/* =====================================================
+   基本設定
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #202020;
+
+    font-family:
+        Arial,
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+}
+
+#siteFooter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    padding: 0 6px;
+
+    font-size: 8px;
+    line-height: 1;
+    white-space: nowrap;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    background: rgba(20, 20, 25, 0.88);
+    backdrop-filter: blur(8px);
+
+    z-index: 30;
+       /*
+       與手機下方圓角吻合
+    */
+    border-radius:
+        0 0 30px 30px;
+}
+
+#siteFooter a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+}
+
+#siteFooter a:hover {
+    text-decoration: underline;
+}
+/* =====================================================
+   顏色
+   ===================================================== */
+
+:root {
+
+    --phone-color: #d1a26b;
+
+    --bubble-opacity: 0.70;
+
+    --user-color:
+        rgba(
+            255,
+            165,
+            0,
+            var(--bubble-opacity)
+        );
+
+    --gold-color:
+        rgba(
+            255,
+            255,
+            255,
+            var(--bubble-opacity)
+        );
+}
+
+
+/* =====================================================
+   手機外框
+   ===================================================== */
+
+.phone {
+
+    width: 360px;
+
+    height: 794px;
+
+    padding: 9px;
+
+    flex-shrink: 0;
+
+    background:
+        var(--phone-color);
+
+    border-radius: 38px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0, 0, 0, 0.55);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   模擬螢幕
+   ===================================================== */
+
+.screen {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 29px;
+
+    background-image:
+        url("golden-wifu.jpg");
+
+    background-position:
+        center center;
+
+    background-size:
+        cover;
+
+    background-repeat:
+        no-repeat;
+}
+
+
+/* =====================================================
+   Header
+   ===================================================== */
+
+.chat-header {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        10px 15px;
+
+    background:
+        rgba(20, 20, 25, 0.80);
+
+    backdrop-filter:
+        blur(8px);
+
+    color: white;
+
+    z-index: 20;
+
+    /*
+       與手機上方圓角吻合
+    */
+    border-radius:
+        30px 30px 0 0;
+}
+
+
+.header-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    flex:
+        0 0 42px;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border:
+        2px solid white;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+.header-text {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.header-name {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    line-height: 1.2;
+}
+
+
+.header-status {
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    opacity: 0.75;
+}
+
+
+/* =====================================================
+   聊天區
+   ===================================================== */
+
+#chat {
+
+    position: absolute;
+
+    top: 68px;
+    bottom: 94px;
+
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    padding:
+        15px 11px 75px;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    z-index: 5;
+
+    scrollbar-width: thin;
+}
+
+
+/* =====================================================
+   訊息
+   ===================================================== */
+
+.message {
+
+    display: flex;
+
+    width: 100%;
+
+    align-items: flex-end;
+
+    gap: 6px;
+
+    margin-bottom: 12px;
+
+    flex-shrink: 0;
+}
+
+
+.goldMessage {
+
+    justify-content: flex-start;
+}
+
+
+.userMessage {
+
+    justify-content: flex-end;
+}
+
+
+/* =====================================================
+   頭像
+   ===================================================== */
+
+.avatar {
+
+    width: 38px;
+    height: 38px;
+
+    flex:
+        0 0 38px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border:
+        2px solid white;
+
+    background:
+        rgba(255, 255, 255, 0.20);
+
+    box-shadow:
+        0 2px 8px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+/* =====================================================
+   訊息泡泡
+   ===================================================== */
+
+.bubble {
+
+    max-width: 72%;
+
+    padding:
+        9px 13px;
+
+    border-radius: 18px;
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.20);
+}
+
+
+.goldMessage .bubble {
+
+    background:
+        var(--gold-color);
+
+    color: #222;
+
+    border-bottom-left-radius: 5px;
+}
+
+
+.userMessage .bubble {
+
+    background:
+        var(--user-color);
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+
+/* =====================================================
+   等待
+   ===================================================== */
+
+.waiting .bubble {
+
+    background:
+        rgba(255, 255, 255, 0.70);
+
+    color: #666;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   時間
+   ===================================================== */
+
+.time {
+
+    margin:
+        0 2px 3px;
+
+    font-size: 9px;
+
+    color: white;
+
+    opacity: 0.85;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   飄浮 Emoji
+   ===================================================== */
+
+.floating-emoji {
+
+    position: absolute;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    font-size: 24px;
+
+    opacity: 0;
+
+    animation:
+        emojiFloat 1.2s ease-out forwards;
+
+    transform:
+        translateY(0)
+        scale(0.7);
+
+    text-shadow:
+        0 2px 6px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+@keyframes emojiFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.6)
+            rotate(-8deg);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    70% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-65px)
+            scale(1.1)
+            rotate(8deg);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-105px)
+            scale(0.85)
+            rotate(-5deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   檔案
+   ===================================================== */
+
+.wallpaper-file {
+
+    width:
+        calc(100% - 45px);
+
+    margin-left: 44px;
+
+    margin-bottom: 15px;
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.70);
+
+    color: #222;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+.file-icon {
+
+    font-size: 26px;
+
+    flex-shrink: 0;
+}
+
+
+.file-info {
+
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.file-info strong {
+
+    font-size: 13px;
+}
+
+
+.file-info small {
+
+    margin-top: 3px;
+
+    font-size: 9px;
+
+    word-break: break-all;
+
+    opacity: 0.70;
+}
+
+
+.file-download {
+
+    flex-shrink: 0;
+
+    padding:
+        7px 10px;
+
+    border-radius: 10px;
+
+    background:
+        #d1a26b;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   輸入區
+   ===================================================== */
+
+#inputArea {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 26px;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        9px 10px;
+
+    backdrop-filter:
+        blur(10px);
+
+    z-index: 20;
+
+}
+
+
+#userInput {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 38px;
+
+    padding:
+        0 15px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.95);
+
+    color: #333;
+
+    font-size: 13px;
+}
+
+
+#userInput::placeholder {
+
+    color: #999;
+}
+
+
+#sendButton {
+
+    width: 38px;
+    height: 38px;
+
+    flex:
+        0 0 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    color: white;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+
+#sendButton:hover {
+
+    background:
+        rgba(255, 255, 255, 0.30);
+}
+
+
+#sendButton:disabled {
+
+    opacity: 0.45;
+
+    cursor: default;
+}
+
+
+/* =====================================================
+   小螢幕縮放
+   ===================================================== */
+
+@media (max-height: 820px) {
+
+    .phone {
+
+        transform:
+            scale(
+                calc(
+                    (100vh - 20px) / 794
+                )
+            );
+
+        transform-origin:
+            center center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="phone">
+
+    <div class="screen">
+
+
+        <!-- =================================================
+             Header
+             ================================================= -->
+
+        <div class="chat-header">
+
+            <img
+                class="header-avatar"
+                src="golden-pfp.png"
+                alt="Gold"
+            >
+
+            <div class="header-text">
+
+                <div
+                    class="header-name"
+                    id="headerName"
+                >
+                    金
+                </div>
+
+                <div
+                    class="header-status"
+                    id="headerStatus"
+                >
+                    在線
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             聊天
+             ================================================= -->
+
+        <div id="chat"></div>
+
+
+        <!-- =================================================
+             輸入區
+             ================================================= -->
+
+        <div id="inputArea">
+
+            <input
+                id="userInput"
+                type="text"
+                placeholder="輸入你想對金說的話..."
+                autocomplete="off"
+            >
+
+            <button
+                id="sendButton"
+                type="button"
+            >
+                ➤
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             Footer
+             ================================================= -->
+
+        <footer id="siteFooter">
+            © 2026 Derive Dimension Demon ·
+            <a href="https://derivedimensiondemon.wordpress.com/" target="_blank">
+                Official Website
+            </a>
+            ｜
+            <a href="https://derivedimensiondemon.wordpress.com/terms/" target="_blank">
+                Terms
+            </a>
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   遊戲設定
+   ===================================================== */
+
+const GAME_CONFIG = {
+
+    startingAffection: 50,
+
+    minAffection: 0,
+
+    maxAffection: 100,
+
+    reactionRange: 10,
+
+    reactionDelay: 1000,
+
+    offlineAffection: 0,
+
+    rewardAffection: 100,
+
+
+    /* ---------------------------------------------
+       D100
+       --------------------------------------------- */
+
+      d100: {
+      
+          normalMax: 20,
+      
+          neutralMax: 30,
+      
+          samePolarityMax: 80,
+      
+          oppositePolarityMax: 100
+      
+      },
+
+
+    /* ---------------------------------------------
+       桌布
+       --------------------------------------------- */
+
+    rewardWallpaper:
+        "golden-wifu1.0-wallpaper.jpg"
+
+};
+
+
+/* =====================================================
+   DOM
+   ===================================================== */
+
+const chat =
+    document.getElementById("chat");
+
+const userInput =
+    document.getElementById("userInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const headerStatus =
+    document.getElementById("headerStatus");
+
+
+/* =====================================================
+   遊戲狀態
+   ===================================================== */
+
+let affection =
+    GAME_CONFIG.startingAffection;
+
+let waiting =
+    false;
+
+let goldOffline =
+    false;
+
+let rewardSent =
+    false;
+
+let talkingData =
+    null;
+
+let feelingData =
+    null;
+
+
+/* =====================================================
+   Emoji
+   ===================================================== */
+
+const positiveEmojis = [
+
+    "💛",
+    "❤️",
+    "💕",
+    "💓",
+    "💗",
+    "❤️‍🔥",
+    "💡",
+    "☀️",
+    "⭐",
+    "🌟"
+
+];
+
+
+const negativeEmojis = [
+
+    "💢",
+    "💦",
+    "💔",
+    "💤",
+    "🚮",
+    "💭",
+    "🚓",
+    "🌋",
+    "⚡",
+    "💧",
+    "🔥",
+    "🚫",
+    "🆖"
+
+];
+
+
+/* =====================================================
+   載入 JSON
+   ===================================================== */
+
+async function loadGameData() {
+
+
+    /* =================================================
+       金的語錄
+       ================================================= */
+
+    try {
+
+        const talkingResponse =
+            await fetch(
+                "./golden-talking.json?v=" +
+                Date.now()
+            );
+
+
+        console.log(
+            "golden-talking HTTP:",
+            talkingResponse.status,
+            talkingResponse.ok
+        );
+
+
+        if (
+            !talkingResponse.ok
+        ) {
+
+            throw new Error(
+                "golden-talking.json HTTP " +
+                talkingResponse.status
+            );
+
+        }
+
+
+        const talkingText =
+            await talkingResponse.text();
+
+
+        talkingData =
+            JSON.parse(
+                talkingText
+            );
+
+
+        console.log(
+            "golden-talking JSON 解析成功"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "golden-talking.json 載入失敗:",
+            error
+        );
+
+
+        addSystemMessage(
+            "金的語錄載入失敗：" +
+            error.message
+        );
+
+
+        sendButton.disabled =
+            true;
+
+        userInput.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    /* =================================================
+       好感度詞庫
+       ================================================= */
+
+    try {
+
+        const feelingResponse =
+            await fetch(
+                "./golden-feeling.json?v=" +
+                Date.now()
+            );
+
+
+        console.log(
+            "golden-feeling HTTP:",
+            feelingResponse.status,
+            feelingResponse.ok
+        );
+
+
+        if (
+            !feelingResponse.ok
+        ) {
+
+            throw new Error(
+                "golden-feeling.json HTTP " +
+                feelingResponse.status
+            );
+
+        }
+
+
+        const feelingText =
+            await feelingResponse.text();
+
+
+        feelingData =
+            JSON.parse(
+                feelingText
+            );
+
+
+        console.log(
+            "golden-feeling JSON 解析成功"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "golden-feeling.json 載入失敗:",
+            error
+        );
+
+
+        addSystemMessage(
+            "好感度詞庫載入失敗：" +
+            error.message
+        );
+
+
+        sendButton.disabled =
+            true;
+
+        userInput.disabled =
+            true;
+
+        return;
+
+    }
+
+
+        /* =================================================
+           初始聊天紀錄
+           ================================================= */
+        
+        addGoldMessage(
+            "嗯？"
+        );
+        
+        addUserMessage(
+            "妳在做什麼？"
+        );
+        
+        addGoldMessage(
+            "剛剛運動完。"
+        );
+
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "GOLDEN-WIFU1.0 資料全部載入成功"
+    );
+
+    console.log(
+        "================================"
+    );
+
+
+    userInput.focus();
+
+}
+
+
+/* =====================================================
+   系統訊息
+   ===================================================== */
+
+function addSystemMessage(text) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "message goldMessage";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.textContent =
+        text;
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   時間
+   ===================================================== */
+
+function getCurrentTime() {
+
+    const now =
+        new Date();
+
+
+    return now.toLocaleTimeString(
+        "zh-TW",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   自動捲到底部
+   ===================================================== */
+
+function scrollChat() {
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+/* =====================================================
+   玩家訊息
+   ===================================================== */
+
+function addUserMessage(text) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "message userMessage";
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+
+    avatar.className =
+        "avatar";
+
+
+    avatar.src =
+        "npc-pfp.png";
+
+
+    avatar.alt =
+        "NPC";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.textContent =
+        text;
+
+
+    const time =
+        document.createElement(
+            "span"
+        );
+
+
+    time.className =
+        "time";
+
+
+    time.textContent =
+        getCurrentTime();
+
+
+    wrapper.appendChild(
+        time
+    );
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    wrapper.appendChild(
+        avatar
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   金訊息
+   ===================================================== */
+
+function addGoldMessage(text) {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "message goldMessage";
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+
+    avatar.className =
+        "avatar";
+
+
+    avatar.src =
+        "golden-pfp.png";
+
+
+    avatar.alt =
+        "Gold";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.textContent =
+        text;
+
+
+    const time =
+        document.createElement(
+            "span"
+        );
+
+
+    time.className =
+        "time";
+
+
+    time.textContent =
+        getCurrentTime();
+
+
+    wrapper.appendChild(
+        avatar
+    );
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    wrapper.appendChild(
+        time
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   等待訊息
+   ===================================================== */
+
+function addWaitingMessage() {
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "message goldMessage waiting";
+
+
+    wrapper.id =
+        "waitingMessage";
+
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+
+    avatar.className =
+        "avatar";
+
+
+    avatar.src =
+        "golden-pfp.png";
+
+
+    avatar.alt =
+        "Gold";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.textContent =
+        "金正在思考……";
+
+
+    wrapper.appendChild(
+        avatar
+    );
+
+
+    wrapper.appendChild(
+        bubble
+    );
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   移除等待
+   ===================================================== */
+
+function removeWaitingMessage() {
+
+    const waitingMessage =
+        document.getElementById(
+            "waitingMessage"
+        );
+
+
+    if (
+        waitingMessage
+    ) {
+
+        waitingMessage.remove();
+
+    }
+
+}
+
+
+/* =====================================================
+   D100
+   ===================================================== */
+
+function rollD100() {
+
+    return Math.floor(
+        Math.random() * 100
+    ) + 1;
+
+}
+
+
+/* =====================================================
+   正常 ±10
+   ===================================================== */
+
+function getNormalRange() {
+
+    return {
+
+        min:
+            Math.max(
+                1,
+                affection -
+                GAME_CONFIG.reactionRange
+            ),
+
+        max:
+            Math.min(
+                99,
+                affection +
+                GAME_CONFIG.reactionRange
+            )
+
+    };
+
+}
+
+
+/* =====================================================
+   中性 40～60
+   ===================================================== */
+
+function getNeutralRange() {
+
+    return {
+
+        min: 40,
+
+        max: 60
+
+    };
+
+}
+
+
+/* =====================================================
+   同極性
+   ===================================================== */
+
+function getSamePolarityRange() {
+
+    if (
+        affection >= 50
+    ) {
+
+        return {
+
+            min: 61,
+
+            max: 99
+
+        };
+
+    }
+
+
+    return {
+
+        min: 1,
+
+        max: 39
+
+    };
+
+}
+
+
+/* =====================================================
+   反極性
+   ===================================================== */
+
+function getOppositePolarityRange() {
+
+    if (
+        affection >= 50
+    ) {
+
+        return {
+
+            min: 1,
+
+            max: 39
+
+        };
+
+    }
+
+
+    return {
+
+        min: 61,
+
+        max: 99
+
+    };
+
+}
+
+
+/* =====================================================
+   從 RANGE 抽數字
+   ===================================================== */
+
+function pickFromRange(range) {
+
+    return Math.floor(
+        Math.random() *
+        (
+            range.max -
+            range.min +
+            1
+        )
+    )
+    +
+    range.min;
+
+}
+
+
+/* =====================================================
+   D100 → 金的回應編號
+   ===================================================== */
+
+function getRandomReactionNumber() {
+
+    const roll =
+        rollD100();
+
+
+    let range;
+
+    let resultType;
+
+
+    if (
+        roll <=
+        GAME_CONFIG.d100.normalMax
+    ) {
+
+        range =
+            getNormalRange();
+
+        resultType =
+            "NORMAL";
+
+    }
+
+    else if (
+        roll <=
+        GAME_CONFIG.d100.neutralMax
+    ) {
+
+        range =
+            getNeutralRange();
+
+        resultType =
+            "NEUTRAL";
+
+    }
+
+    else if (
+        roll <=
+        GAME_CONFIG.d100.samePolarityMax
+    ) {
+
+        range =
+            getSamePolarityRange();
+
+        resultType =
+            "SAME";
+
+    }
+
+    else {
+
+        range =
+            getOppositePolarityRange();
+
+        resultType =
+            "OPPOSITE";
+
+    }
+
+
+    console.log(
+        "D100:",
+        roll,
+        "|",
+        resultType,
+        "|",
+        "RANGE:",
+        range.min +
+        "-" +
+        range.max
+    );
+
+
+    return pickFromRange(
+        range
+    );
+
+}
+
+
+/* =====================================================
+   沒命中關鍵詞時
+   -1 / 0 / +1 / +2
+   ===================================================== */
+
+function getNeutralScore() {
+
+    const random =
+        Math.random();
+
+
+    if (
+        random < 0.20
+    ) {
+
+        return -1;
+
+    }
+
+
+    if (
+        random < 0.70
+    ) {
+
+        return 0;
+
+    }
+
+
+    if (
+        random < 0.95
+    ) {
+
+        return 1;
+
+    }
+
+
+    return 2;
+
+}
+
+
+/* =====================================================
+   計算詞語出現次數
+   ===================================================== */
+
+function countOccurrences(
+    text,
+    word
+) {
+
+    if (
+        !word ||
+        word.length === 0
+    ) {
+
+        return 0;
+
+    }
+
+
+    let count =
+        0;
+
+    let position =
+        0;
+
+
+    while (true) {
+
+        const index =
+            text.indexOf(
+                word,
+                position
+            );
+
+
+        if (
+            index === -1
+        ) {
+
+            break;
+
+        }
+
+
+        count++;
+
+
+        position =
+            index + 1;
+
+    }
+
+
+    return count;
+
+}
+
+
+/* =====================================================
+   計算好感度
+   ===================================================== */
+
+function calculateFeeling(text) {
+
+    if (
+        !feelingData
+    ) {
+
+        return 0;
+
+    }
+
+
+    let totalScore =
+        0;
+
+    let matched =
+        false;
+
+
+    /* =================================================
+       正面詞庫
+       ================================================= */
+
+    for (
+        let score = 1;
+        score <= 5;
+        score++
+    ) {
+
+        const key =
+            "positive_" +
+            score;
+
+
+        const words =
+            feelingData[key];
+
+
+        if (
+            !Array.isArray(words)
+        ) {
+
+            continue;
+
+        }
+
+
+        for (
+            const word of words
+        ) {
+
+            if (
+                typeof word !== "string" ||
+                word.length === 0
+            ) {
+
+                continue;
+
+            }
+
+
+            const count =
+                countOccurrences(
+                    text,
+                    word
+                );
+
+
+            if (
+                count > 0
+            ) {
+
+                totalScore +=
+                    score *
+                    count;
+
+
+                matched =
+                    true;
+
+
+                console.log(
+                    "正面:",
+                    word,
+                    "x",
+                    count,
+                    "=",
+                    "+" +
+                    (
+                        score *
+                        count
+                    )
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================================
+       負面詞庫
+       ================================================= */
+
+    for (
+        let score = 1;
+        score <= 5;
+        score++
+    ) {
+
+        const key =
+            "negative_" +
+            score;
+
+
+        const words =
+            feelingData[key];
+
+
+        if (
+            !Array.isArray(words)
+        ) {
+
+            continue;
+
+        }
+
+
+        for (
+            const word of words
+        ) {
+
+            if (
+                typeof word !== "string" ||
+                word.length === 0
+            ) {
+
+                continue;
+
+            }
+
+
+            const count =
+                countOccurrences(
+                    text,
+                    word
+                );
+
+
+            if (
+                count > 0
+            ) {
+
+                totalScore -=
+                    score *
+                    count;
+
+
+                matched =
+                    true;
+
+
+                console.log(
+                    "負面:",
+                    word,
+                    "x",
+                    count,
+                    "=",
+                    "-" +
+                    (
+                        score *
+                        count
+                    )
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================================
+       沒命中 → 中立隨機
+       ================================================= */
+
+    if (
+        !matched
+    ) {
+
+        const neutralScore =
+            getNeutralScore();
+
+
+        console.log(
+            "沒有命中關鍵詞 → 中立:",
+            neutralScore
+        );
+
+
+        return neutralScore;
+
+    }
+
+
+    console.log(
+        "本次輸入總分:",
+        totalScore
+    );
+
+
+    return totalScore;
+
+}
+
+
+/* =====================================================
+   隨機 Emoji
+   ===================================================== */
+
+function getRandomEmoji(list) {
+
+    return list[
+        Math.floor(
+            Math.random() *
+            list.length
+        )
+    ];
+
+}
+
+
+/* =====================================================
+   飄浮 Emoji
+   ===================================================== */
+
+function createFloatingEmoji(
+    emoji,
+    x,
+    y
+) {
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+
+    element.className =
+        "floating-emoji";
+
+
+    element.textContent =
+        emoji;
+
+
+    element.style.left =
+        x + "px";
+
+
+    element.style.top =
+        y + "px";
+
+
+    document
+        .querySelector(".screen")
+        .appendChild(
+            element
+        );
+
+
+    setTimeout(
+        () => {
+
+            element.remove();
+
+        },
+        1300
+    );
+
+}
+
+
+/* =====================================================
+   好感度變化
+   ===================================================== */
+
+function changeAffection(delta) {
+
+    affection +=
+        delta;
+
+
+    affection =
+        Math.max(
+            GAME_CONFIG.minAffection,
+
+            Math.min(
+                GAME_CONFIG.maxAffection,
+                affection
+            )
+        );
+
+
+    console.log(
+        "目前好感度:",
+        affection,
+        "| 本次:",
+        delta
+    );
+
+
+    /* =================================================
+       正面 Emoji
+       ================================================= */
+
+    if (
+        delta > 0
+    ) {
+
+        const count =
+            Math.min(
+                3,
+
+                Math.max(
+                    1,
+
+                    Math.ceil(
+                        delta / 4
+                    )
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const emoji =
+                getRandomEmoji(
+                    positiveEmojis
+                );
+
+
+            const x =
+                65 +
+                Math.random() *
+                210;
+
+
+            const y =
+                380 +
+                Math.random() *
+                250;
+
+
+            createFloatingEmoji(
+                emoji,
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    /* =================================================
+       負面 Emoji
+       ================================================= */
+
+    else if (
+        delta < 0
+    ) {
+
+        const count =
+            Math.min(
+                3,
+
+                Math.max(
+                    1,
+
+                    Math.ceil(
+                        Math.abs(delta) / 4
+                    )
+                )
+            );
+
+
+        for (
+            let i = 0;
+            i < count;
+            i++
+        ) {
+
+            const emoji =
+                getRandomEmoji(
+                    negativeEmojis
+                );
+
+
+            const x =
+                65 +
+                Math.random() *
+                210;
+
+
+            const y =
+                380 +
+                Math.random() *
+                250;
+
+
+            createFloatingEmoji(
+                emoji,
+                x,
+                y
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   金離線
+   ===================================================== */
+
+function goGoldOffline() {
+
+    goldOffline =
+        true;
+
+
+    headerStatus.textContent =
+        "離線";
+
+}
+
+
+/* =====================================================
+   傳送桌布
+   ===================================================== */
+
+function addWallpaperFile() {
+
+    if (
+        rewardSent
+    ) {
+
+        return;
+
+    }
+
+
+    rewardSent =
+        true;
+
+
+    addGoldMessage(
+        "我的照片..不..不可以外流哦！"
+    );
+
+
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "wallpaper-file";
+
+
+    wrapper.innerHTML = `
+
+        <div class="file-icon">
+            💌
+        </div>
+
+        <div class="file-info">
+
+            <strong>
+                已接收：金傳送的圖檔
+            </strong>
+
+            <small>
+                golden-wifu1.0-wallpaper.jpg
+            </small>
+
+        </div>
+
+        <a
+            class="file-download"
+            href="golden-wifu1.0-wallpaper.jpg"
+            download="golden-wifu1.0-wallpaper.jpg"
+        >
+            開啟
+        </a>
+
+    `;
+
+
+    chat.appendChild(
+        wrapper
+    );
+
+
+    scrollChat();
+
+}
+
+
+/* =====================================================
+   取得金的台詞
+   ===================================================== */
+
+function getReactionText(
+    reactionNumber
+) {
+
+    if (
+        !talkingData
+    ) {
+
+        return "……";
+
+    }
+
+
+    const text =
+        talkingData[
+            String(
+                reactionNumber
+            )
+        ];
+
+
+    if (
+        typeof text !== "string" ||
+        text.trim() === ""
+    ) {
+
+        return "……";
+
+    }
+
+
+    return text;
+
+}
+
+
+/* =====================================================
+   金回應
+   ===================================================== */
+
+function respondToPlayer() {
+
+    if (
+        affection >= 100
+    ) {
+
+        addWallpaperFile();
+
+        return;
+
+    }
+
+
+    const reactionNumber =
+        getRandomReactionNumber();
+
+
+    const reaction =
+        getReactionText(
+            reactionNumber
+        );
+
+
+    addGoldMessage(
+        reaction
+    );
+
+}
+
+
+/* =====================================================
+   發送訊息
+   ===================================================== */
+
+function sendMessage() {
+
+    if (
+        waiting
+    ) {
+
+        return;
+
+    }
+
+
+    const text =
+        userInput.value.trim();
+
+
+    if (
+        !text
+    ) {
+
+        return;
+
+    }
+
+
+    /* ---------------------------------------------
+       顯示玩家訊息
+       --------------------------------------------- */
+
+    addUserMessage(
+        text
+    );
+
+
+    userInput.value =
+        "";
+
+
+    /* ---------------------------------------------
+       金已離線
+       --------------------------------------------- */
+
+    if (
+        goldOffline
+    ) {
+
+        return;
+
+    }
+
+
+    /* ---------------------------------------------
+       計算好感度
+       --------------------------------------------- */
+
+    const delta =
+        calculateFeeling(
+            text
+        );
+
+
+    changeAffection(
+        delta
+    );
+
+
+    /* ---------------------------------------------
+       0 → 離線
+       --------------------------------------------- */
+
+    if (
+        affection <= 0
+    ) {
+
+        goGoldOffline();
+
+        return;
+
+    }
+
+
+    /* ---------------------------------------------
+       等待金反應
+       --------------------------------------------- */
+
+    waiting =
+        true;
+
+
+    sendButton.disabled =
+        true;
+
+
+    userInput.disabled =
+        true;
+
+
+    addWaitingMessage();
+
+
+    setTimeout(
+        () => {
+
+            removeWaitingMessage();
+
+
+            if (
+                affection >= 100
+            ) {
+
+                addWallpaperFile();
+
+            }
+
+            else {
+
+                respondToPlayer();
+
+            }
+
+
+            waiting =
+                false;
+
+
+            sendButton.disabled =
+                false;
+
+
+            userInput.disabled =
+                false;
+
+
+            userInput.focus();
+
+        },
+        GAME_CONFIG.reactionDelay
+    );
+
+}
+
+
+/* =====================================================
+   送出按鈕
+   ===================================================== */
+
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
+
+
+/* =====================================================
+   Enter
+   ===================================================== */
+
+userInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   啟動
+   ===================================================== */
+
+loadGameData();
+
+</script>
+</body>
+
+</html>
