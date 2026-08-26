@@ -2559,8 +2559,20 @@ function addWallpaperFile() {
         true;
 
 
+    const wallpaperQuote =
+        "我的照片..不..不可以外流哦！";
+
     addGoldMessage(
-        "我的照片..不..不可以外流哦！"
+        wallpaperQuote
+    );
+
+    /* 特殊第 100 句：
+       不從 golden-talking.json 取得，而是直接使用
+       本次實際送出的桌布訊息。之後若修改上面的文字，
+       收藏內容也會跟著使用新文字，不需要另外修改語錄資料。 */
+    unlockQuote(
+        100,
+        wallpaperQuote
     );
 
 
