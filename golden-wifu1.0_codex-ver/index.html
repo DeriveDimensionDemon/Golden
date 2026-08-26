@@ -889,7 +889,7 @@ body {
                     class="header-status"
                     id="headerStatus"
                 >
-                    在線
+                    <span style="color:green;">●</span> 在線
                 </div>
 
             </div>
@@ -2534,8 +2534,8 @@ function goGoldOffline() {
         true;
 
 
-    headerStatus.textContent =
-        "離線";
+    headerStatus.innerHTML =
+        '<span style="color:gray;">●</span> 離線';
 
 }
 
